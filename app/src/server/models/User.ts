@@ -11,7 +11,7 @@ export type UserObject = {
   books: undefined[] | Schema.Types.ObjectId[]
 }
 
-type UserDocument = Document & UserObject
+export type UserDocument = Document & UserObject
 
 const userSchema = new mongoose.Schema({
   username: {
