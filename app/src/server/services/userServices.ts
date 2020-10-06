@@ -44,20 +44,19 @@ export const findUserByIdAndDelete = async (userId: Schema.Types.ObjectId) => {
   }
 }
 
-export const findUserByIdandUpdate = async (
+export const findUserByIdAndUpdate = async (
   userId: Schema.Types.ObjectId,
   updatedUser: Partial<UserObject>
 ) => {
   try {
-    const userDoc = await User.findById(userId)
+    const userDoc = await User.findById(userId).exec()
     if (!userDoc) {
       throw new DocumentNotFoundError(`User ${userId} not found.`)
     }
     // Create a new document using ES6 Spread syntax.
     const newDocument = { ...userDoc.toObject(), ...updatedUser }
 
-    await User.findByIdAndUpdate(userId, newDocument).exec()
-    return await findUserById(userId)
+    return await User.findByIdAndUpdate(userId, newDocument).exec()
   } catch (err) {
     if (err instanceof DocumentNotFoundError) {
       throw err

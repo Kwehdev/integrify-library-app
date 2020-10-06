@@ -4,7 +4,7 @@ import {
   createNewUserInDB,
   findUserById,
   findUserByIdAndDelete,
-  findUserByIdandUpdate,
+  findUserByIdAndUpdate,
 } from "../../services/userServices"
 
 const newUser: UserObject = {
@@ -34,13 +34,11 @@ describe("Perform general DB actions on data.", () => {
   })
 
   test("Should update the previously created User.", async () => {
-    const userDoc = await findUserByIdandUpdate(userId, {
+    const userDoc = await findUserByIdAndUpdate(userId, {
       username: "Spaghetti Monster",
     })
-
-    console.log(userDoc)
-
-    expect(userDoc.username).toBe("Spaghetti Monster")
+    const newUserDoc = await findUserById(userId)
+    expect(newUserDoc.username).toBe("Spaghetti Monster")
   })
 
   test("Should delete the previously created User.", async () => {
