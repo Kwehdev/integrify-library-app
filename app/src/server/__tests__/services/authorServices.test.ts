@@ -29,7 +29,7 @@ describe("Perform general DB actions on data.", () => {
   })
 
   test("Should update the previously created Author.", async () => {
-    const authorDoc = await findAuthorByIdAndUpdate(authorId, {
+    await findAuthorByIdAndUpdate(authorId, {
       name: "Stephen King",
     })
     const newAuthorDoc = await findAuthorById(authorId)

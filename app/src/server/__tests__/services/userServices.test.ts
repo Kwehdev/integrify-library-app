@@ -34,7 +34,7 @@ describe("Perform general DB actions on data.", () => {
   })
 
   test("Should update the previously created User.", async () => {
-    const userDoc = await findUserByIdAndUpdate(userId, {
+    await findUserByIdAndUpdate(userId, {
       username: "Spaghetti Monster",
     })
     const newUserDoc = await findUserById(userId)

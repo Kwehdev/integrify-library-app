@@ -6,7 +6,7 @@ beforeAll(async () => {
       await mongoose.connect("mongodb://localhost:27017/testDB", {
         useNewUrlParser: true,
         useUnifiedTopology: true,
-        useFindAndModify: true,
+        useFindAndModify: false,
       })
     }
   } catch (error) {
