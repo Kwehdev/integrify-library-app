@@ -1,5 +1,4 @@
 import mongoose, { Document, Schema } from "mongoose"
-import removeAuthorFromBook from "../utils/removeAuthorFromBook"
 import { BookDocument } from "./Book"
 
 export type AuthorObject = {
@@ -21,14 +20,6 @@ const authorSchema = new mongoose.Schema({
       ref: "Book",
     },
   ],
-})
-
-authorSchema.post<AuthorDocument>("findOneAndDelete", async (doc) => {
-  if (doc) {
-    for await (const book of doc.books) {
-      await removeAuthorFromBook(doc._id, book._id)
-    }
-  }
 })
 
 // //Export Model if already created, if not, define it.

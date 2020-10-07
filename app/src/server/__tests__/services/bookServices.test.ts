@@ -101,4 +101,10 @@ describe("Perform general DB actions on data.", () => {
 
     await expect(findBookById(bookId)).rejects.toThrow(DocumentNotFoundError)
   })
+
+  test("Second author should no longer have the book", async () => {
+    const authorDoc = await findAuthorById(altAuthorId)
+
+    expect(authorDoc.books.length).toBe(0)
+  })
 })

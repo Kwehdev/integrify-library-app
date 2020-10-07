@@ -2,6 +2,7 @@ import { Schema } from "mongoose"
 
 import { DatabaseError, DocumentNotFoundError } from "../helpers/apiError"
 import Author, { AuthorObject } from "../models/Author"
+import removeAuthorFromBooks from "../utils/removeAuthorFromBooks"
 
 export const createNewAuthorInDB = async (author: AuthorObject) => {
   try {
@@ -38,6 +39,9 @@ export const findAuthorByIdAndDelete = async (
     if (!authorDoc) {
       throw new DocumentNotFoundError(`Author ${authorId} not found.`)
     }
+
+    await removeAuthorFromBooks(authorDoc._id, authorDoc.books)
+
     return authorDoc
   } catch (err) {
     if (err instanceof DocumentNotFoundError) {
