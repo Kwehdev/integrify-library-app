@@ -44,6 +44,6 @@ describe("Perform general DB actions on data.", () => {
   test("Should delete the previously created User.", async () => {
     await findUserByIdAndDelete(userId)
 
-    await expect(findUserById(userId)).rejects.toThrow(DocumentNotFoundError)
+    await expect(findUserById(userId)).resolves.toBe(null)
   })
 })

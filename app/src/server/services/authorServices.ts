@@ -7,9 +7,6 @@ import removeAuthorFromBooks from "../utils/removeAuthorFromBooks"
 export const createNewAuthorInDB = async (author: AuthorObject) => {
   try {
     const authorDoc = await Author.create(author)
-    if (!authorDoc) {
-      throw new DatabaseError(`Failed to create ${author.name} in database.`)
-    }
     return authorDoc
   } catch (err) {
     throw new DatabaseError(err)
@@ -18,15 +15,8 @@ export const createNewAuthorInDB = async (author: AuthorObject) => {
 
 export const findAuthorById = async (authorId: Schema.Types.ObjectId) => {
   try {
-    const authorDoc = await Author.findById(authorId).exec()
-    if (!authorDoc) {
-      throw new DocumentNotFoundError(`Author ${authorId} not found.`)
-    }
-    return authorDoc
+    return await Author.findById(authorId).exec()
   } catch (err) {
-    if (err instanceof DocumentNotFoundError) {
-      throw err
-    }
     throw new DatabaseError(err)
   }
 }

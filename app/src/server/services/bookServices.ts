@@ -9,10 +9,6 @@ export const createNewBookInDB = async (book: BookObject) => {
   try {
     const bookDoc = await Book.create(book)
 
-    if (!bookDoc) {
-      throw new DatabaseError(`Failed to create ${book.title} in database.`)
-    }
-
     await addBookToAuthors(bookDoc._id, bookDoc.authors)
 
     return bookDoc
@@ -23,15 +19,8 @@ export const createNewBookInDB = async (book: BookObject) => {
 
 export const findBookById = async (bookId: Schema.Types.ObjectId) => {
   try {
-    const bookDoc = await Book.findById(bookId).exec()
-    if (!bookDoc) {
-      throw new DocumentNotFoundError(`Book ${bookId} not found.`)
-    }
-    return bookDoc
+    return await Book.findById(bookId).exec()
   } catch (err) {
-    if (err instanceof DocumentNotFoundError) {
-      throw err
-    }
     throw new DatabaseError(err)
   }
 }

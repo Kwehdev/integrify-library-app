@@ -69,12 +69,10 @@ describe("Perform general DB actions on data.", () => {
   test("Should delete the previously created Author.", async () => {
     await findAuthorByIdAndDelete(authorId)
 
-    await expect(findAuthorById(authorId)).rejects.toThrow(
-      DocumentNotFoundError
-    )
+    await expect(findAuthorById(authorId)).resolves.toBe(null)
   })
 
   test("Book should be deleted, as there is no longer any author associated.", async () => {
-    await expect(findBookById(bookId)).rejects.toThrow(DocumentNotFoundError)
+    await expect(findBookById(bookId)).resolves.toBe(null)
   })
 })
