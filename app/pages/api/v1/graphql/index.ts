@@ -6,22 +6,7 @@ import registerUser from '../../../../src/server/resolvers/mutations/registerUse
 import { GQLContext } from '../../../../src/server/types'
 import { getPayloadFromCookie } from '../../../../src/server/utils/cookieUtils'
 
-const typeDefs = gql`
-  type Query {
-    id: String
-  }
-  type Mutation {
-    registerUser(user: UserRegisterInput): String
-  }
-  input UserRegisterInput {
-    username: String!
-    password: String!
-    confirmPassword: String!
-    email: String!
-    firstName: String!
-    lastName: String!
-  }
-`
+import typeDefs from '../../../../src/server/typeDefs'
 
 const resolvers = {
   Mutation: {
