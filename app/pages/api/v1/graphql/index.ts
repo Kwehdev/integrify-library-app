@@ -8,11 +8,7 @@ import { getPayloadFromCookie } from '../../../../src/server/utils/cookieUtils'
 
 import typeDefs from '../../../../src/server/typeDefs'
 
-const resolvers = {
-  Mutation: {
-    registerUser: registerUser,
-  },
-}
+import resolvers from '../../../../src/server/resolvers'
 
 type ContextProps = {
   req: NextApiRequest
