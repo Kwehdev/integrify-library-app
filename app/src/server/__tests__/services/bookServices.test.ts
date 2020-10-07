@@ -2,7 +2,10 @@ import { Schema } from "mongoose"
 import { DocumentNotFoundError } from "../../helpers/apiError"
 import { AuthorObject } from "../../models/Author"
 import { BookObject } from "../../models/Book"
-import { createNewAuthorInDB } from "../../services/authorServices"
+import {
+  createNewAuthorInDB,
+  findAuthorById,
+} from "../../services/authorServices"
 import {
   createNewBookInDB,
   findBookById,
@@ -31,6 +34,7 @@ const newBook = (authorId: Schema.Types.ObjectId): BookObject => ({
 })
 
 let authorId
+let altAuthorId
 
 beforeAll(async () => {
   //We need to first create an Author, as an author is required in order to add a book.
@@ -38,8 +42,16 @@ beforeAll(async () => {
     name: "George R. R. Martin",
     books: [],
   }
+  //We create another author, to verify that we can switch authors.
+  const altAuthor: AuthorObject = {
+    name: "Stephen King",
+    books: [],
+  }
+
   const authorDoc = await createNewAuthorInDB(newAuthor)
   authorId = authorDoc._id
+  const altAuthorDoc = await createNewAuthorInDB(altAuthor)
+  altAuthorId = altAuthorDoc._id
 })
 
 describe("Perform general DB actions on data.", () => {
@@ -58,12 +70,30 @@ describe("Perform general DB actions on data.", () => {
     expect(bookDoc.title).toBe("A Game of Thrones")
   })
 
+  test("First author should have book assigned", async () => {
+    const authorDoc = await findAuthorById(authorId)
+
+    expect(authorDoc.books).toContainEqual(bookId)
+  })
+
   test("Should update the previously created Book.", async () => {
     await findBookByIdAndUpdate(bookId, {
-      title: "A Storm of Swords",
+      authors: [altAuthorId],
     })
     const newBookDoc = await findBookById(bookId)
-    expect(newBookDoc.title).toBe("A Storm of Swords")
+    expect(newBookDoc.authors).toContainEqual(altAuthorId)
+  })
+
+  test("First author should no longer have the book assigned", async () => {
+    const authorDoc = await findAuthorById(authorId)
+
+    expect(authorDoc.books.length).toBe(0)
+  })
+
+  test("Second author should now have the book assigned", async () => {
+    const authorDoc = await findAuthorById(altAuthorId)
+
+    expect(authorDoc.books).toContainEqual(bookId)
   })
 
   test("Should delete the previously created Book.", async () => {

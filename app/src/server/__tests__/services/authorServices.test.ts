@@ -19,7 +19,7 @@ describe("Perform general DB actions on data.", () => {
   let authorId
   let bookId
 
-  test("Should create a new User", async () => {
+  test("Should create a new Author", async () => {
     const authorDoc = await createNewAuthorInDB(newAuthor)
     //No need to compare every value at this point. If this matches, the User was created.
     expect(authorDoc.name).toBe("George R. R. Martin")
