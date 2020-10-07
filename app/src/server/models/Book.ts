@@ -1,5 +1,6 @@
 import mongoose, { Document, Schema } from "mongoose"
 import { BookGenre, BookStatus } from "../types"
+import addBookToAuthor from "../utils/addBookToAuthor"
 import { AuthorDocument } from "./Author"
 
 export type BookObject = {
@@ -58,6 +59,14 @@ const bookSchema = new mongoose.Schema({
   borrowedBy: Schema.Types.ObjectId,
   borrowDate: String,
   dueDate: String,
+})
+
+bookSchema.post<BookDocument>("save", async (doc) => {
+  if (doc) {
+    for await (const author of doc.authors) {
+      await addBookToAuthor(author._id, doc._id)
+    }
+  }
 })
 
 // //Export Model if already created, if not, define it.

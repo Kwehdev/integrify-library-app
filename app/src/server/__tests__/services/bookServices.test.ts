@@ -69,6 +69,6 @@ describe("Perform general DB actions on data.", () => {
   test("Should delete the previously created Book.", async () => {
     await findBookByIdAndDelete(bookId)
 
-    expect(findBookById(bookId)).rejects.toThrow(DocumentNotFoundError)
+    await expect(findBookById(bookId)).rejects.toThrow(DocumentNotFoundError)
   })
 })

@@ -52,12 +52,18 @@ describe("Perform general DB actions on data.", () => {
     expect(bookDoc.title).toBe("A Game of Thrones")
   })
 
+  test("Book should have been added to Author upon creation.", async () => {
+    const authorDoc = await findAuthorById(authorId)
+
+    expect(authorDoc.books).toContainEqual(bookId)
+  })
+
   test("Should update the previously created Author.", async () => {
     await findAuthorByIdAndUpdate(authorId, {
-      books: [bookId],
+      name: "Not George R. R. Martin",
     })
     const newAuthorDoc = await findAuthorById(authorId)
-    expect(newAuthorDoc.books).toContainEqual(bookId)
+    expect(newAuthorDoc.name).toBe("Not George R. R. Martin")
   })
 
   test("Should delete the previously created Author.", async () => {

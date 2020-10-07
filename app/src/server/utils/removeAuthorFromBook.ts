@@ -11,13 +11,13 @@ const removeAuthorFromBook = async (
     (author) => !author._id.equals(authorId)
   )
 
-  //If no authors exist anymore, delete the book
+  //If no authors exist anymore, delete the book, else save.
   if (newAuthors.length === 0) {
-    return await findBookByIdAndDelete(bookId)
+    await findBookByIdAndDelete(bookId)
+  } else {
+    bookDoc.authors = newAuthors
+    await bookDoc.save()
   }
-  //
-  bookDoc.authors = newAuthors
-  return await bookDoc.save()
 }
 
 export default removeAuthorFromBook
