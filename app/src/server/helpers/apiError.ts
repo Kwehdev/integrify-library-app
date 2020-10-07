@@ -17,3 +17,33 @@ export class DatabaseError extends ApiError {
     Object.setPrototypeOf(this, DatabaseError.prototype)
   }
 }
+
+export class NotAllowedError extends ApiError {
+  constructor(
+    readonly message: string = "You cannot access this route at this time.",
+    source?: Error
+  ) {
+    super(message, source)
+    Object.setPrototypeOf(this, NotAllowedError.prototype)
+  }
+}
+
+export class InvalidInputError extends ApiError {
+  constructor(
+    readonly message: string = "One or more Inputs were invalid.",
+    source?: Error
+  ) {
+    super(message, source)
+    Object.setPrototypeOf(this, InvalidInputError.prototype)
+  }
+}
+
+export class ConflictError extends ApiError {
+  constructor(
+    readonly message: string = "This Resource is already in use..",
+    source?: Error
+  ) {
+    super(message, source)
+    Object.setPrototypeOf(this, ConflictError.prototype)
+  }
+}

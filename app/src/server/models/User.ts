@@ -1,6 +1,6 @@
-import mongoose, { Document, Schema } from "mongoose"
-import { Role } from "../types"
-import { BookDocument } from "./Book"
+import mongoose, { Document, Schema } from 'mongoose'
+import { UserRole } from '../types'
+import { BookDocument } from './Book'
 
 export type UserObject = {
   username: string
@@ -8,8 +8,8 @@ export type UserObject = {
   email: string
   firstName: string
   lastName: string
-  role: Role
-  books: BookDocument["_id"][]
+  role: UserRole
+  books: BookDocument['_id'][]
 }
 
 export type UserDocument = Document & UserObject
@@ -42,11 +42,11 @@ const userSchema = new mongoose.Schema({
   books: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Book",
+      ref: 'Book',
     },
   ],
 })
 
 //Export Model if already created, if not, define it.
 export default (mongoose.models.User as mongoose.Model<UserDocument>) ||
-  mongoose.model<UserDocument>("User", userSchema)
+  mongoose.model<UserDocument>('User', userSchema)

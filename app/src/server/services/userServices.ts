@@ -1,6 +1,6 @@
-import { Schema } from "mongoose"
-import { DatabaseError, DocumentNotFoundError } from "../helpers/apiError"
-import User, { UserObject } from "../models/User"
+import { Schema } from 'mongoose'
+import { DatabaseError, DocumentNotFoundError } from '../helpers/apiError'
+import User, { UserObject } from '../models/User'
 
 export const createNewUserInDB = async (user: UserObject) => {
   try {
@@ -13,6 +13,24 @@ export const createNewUserInDB = async (user: UserObject) => {
 export const findUserById = async (userId: Schema.Types.ObjectId) => {
   try {
     return await User.findById(userId).exec()
+  } catch (err) {
+    throw new DatabaseError(err)
+  }
+}
+
+export const findUserByUsername = async (username: string) => {
+  const usernameRegex = new RegExp(`^${username}$`, 'i')
+  try {
+    return await User.findOne({ username: usernameRegex }).exec()
+  } catch (err) {
+    throw new DatabaseError(err)
+  }
+}
+
+export const findUserByEmail = async (email: string) => {
+  const emailRegex = new RegExp(`^${email}$`, 'i')
+  try {
+    return await User.findOne({ email: emailRegex }).exec()
   } catch (err) {
     throw new DatabaseError(err)
   }
