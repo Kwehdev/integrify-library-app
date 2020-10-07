@@ -1,5 +1,6 @@
 import mongoose, { Document, Schema } from "mongoose"
 import { Role } from "../types"
+import { BookDocument } from "./Book"
 
 export type UserObject = {
   username: string
@@ -8,7 +9,7 @@ export type UserObject = {
   firstName: string
   lastName: string
   role: Role
-  books: undefined[] | Schema.Types.ObjectId[]
+  books: BookDocument["_id"][]
 }
 
 export type UserDocument = Document & UserObject

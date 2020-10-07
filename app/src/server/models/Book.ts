@@ -8,7 +8,7 @@ export type BookObject = {
   title: string
   description: string
   status: BookStatus
-  authors: AuthorDocument[] | Schema.Types.ObjectId[]
+  authors: AuthorDocument["_id"][]
   publisher: string
   publishedDate: string
   genre: BookGenre[]
@@ -40,11 +40,13 @@ const bookSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  authors: {
-    type: Schema.Types.ObjectId,
-    required: true,
-    ref: "Author",
-  },
+  authors: [
+    {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: "Author",
+    },
+  ],
   publisher: {
     type: String,
     required: true,

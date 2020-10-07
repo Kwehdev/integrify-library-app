@@ -36,6 +36,7 @@ beforeAll(async () => {
   //We need to first create an Author, as an author is required in order to add a book.
   const newAuthor: AuthorObject = {
     name: "George R. R. Martin",
+    books: [],
   }
   const authorDoc = await createNewAuthorInDB(newAuthor)
   authorId = authorDoc._id
