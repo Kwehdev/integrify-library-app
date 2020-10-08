@@ -57,7 +57,7 @@ beforeAll(async () => {
   await mutate({ mutation: REGISTER_VALID_USER });
 });
 
-describe('Will test user creation', () => {
+describe('Will test user login', () => {
   test('Will not continue if user is signed in', async () => {
     const { mutate } = getTestServer(
       ctx(

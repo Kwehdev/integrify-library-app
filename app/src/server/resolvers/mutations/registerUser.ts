@@ -63,7 +63,7 @@ const registerUser: GQLMutation = async (_parent, _args, _context) => {
     username: userDoc.username,
     role: userDoc.role,
   };
-  await setCookie(userPayload, _context);
+  await setCookie(_context, userPayload);
   return 'Successfully signed in.';
 };
 
