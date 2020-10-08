@@ -1,9 +1,16 @@
 import type { IncomingMessage, ServerResponse } from 'http';
+import { Schema } from 'mongoose';
 import { Socket } from 'net';
-import { CustomRequest } from '../server/types';
+import { CustomRequest, UserPayload } from '../server/types';
+
+export const mockUser: UserPayload = {
+  userId: new Schema.Types.ObjectId('key'),
+  username: 'Username',
+  role: 'USER',
+};
 
 export const createIncomingRequestMock = (
-  req?: Partial<IncomingMessage>
+  req?: Partial<IncomingMessage & CustomRequest>
 ): IncomingMessage & CustomRequest => {
   const socket = new Socket();
 

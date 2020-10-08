@@ -2,6 +2,7 @@ import { gql } from 'apollo-server-micro';
 import {
   createIncomingRequestMock,
   createServerResponseMock,
+  mockUser,
 } from '../../../../testUtils/contextUtils';
 
 import getTestServer from '../../../../testUtils/getTestServer';
@@ -35,13 +36,13 @@ beforeAll(async () => {
     }
   `;
 
-  const { mutate } = getTestServer(ctx({}, {}));
+  const { mutate } = getTestServer();
   await mutate({ mutation: REGISTER_VALID_USER });
 });
 
 describe('Will test user logout', () => {
   test('Will not continue if user is not signed in.', async () => {
-    const { mutate } = getTestServer(ctx({}, {}));
+    const { mutate } = getTestServer();
 
     const response = await mutate({ mutation: LOGOUT_USER });
     expect(response.errors[0].message).toBe(
@@ -51,17 +52,9 @@ describe('Will test user logout', () => {
 
   test('Will logout User', async () => {
     const setHeader = jest.fn();
-
-    const { mutate } = getTestServer(
-      ctx(
-        {
-          user: {},
-        },
-        {
-          setHeader,
-        }
-      )
-    );
+    const req = createIncomingRequestMock({ user: mockUser });
+    const res = createServerResponseMock({ setHeader });
+    const { mutate } = getTestServer({ req, res });
 
     const response = await mutate({ mutation: LOGOUT_USER });
     expect(setHeader).toBeCalledTimes(1);

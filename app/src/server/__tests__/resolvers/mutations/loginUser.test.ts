@@ -2,16 +2,10 @@ import { gql } from 'apollo-server-micro';
 import {
   createIncomingRequestMock,
   createServerResponseMock,
+  mockUser,
 } from '../../../../testUtils/contextUtils';
 
 import getTestServer from '../../../../testUtils/getTestServer';
-
-const ctx = (req, res) => {
-  return {
-    req: { ...createIncomingRequestMock, ...req },
-    res: { ...createServerResponseMock, ...res },
-  };
-};
 
 const INVALID_USERNAME_LOGIN = gql`
   mutation {
@@ -53,20 +47,15 @@ beforeAll(async () => {
     }
   `;
 
-  const { mutate } = getTestServer(ctx({}, {}));
+  const { mutate } = getTestServer();
   await mutate({ mutation: REGISTER_VALID_USER });
 });
 
 describe('Will test user login', () => {
   test('Will not continue if user is signed in', async () => {
-    const { mutate } = getTestServer(
-      ctx(
-        {
-          user: {},
-        },
-        {}
-      )
-    );
+    const req = createIncomingRequestMock({ user: mockUser });
+    const res = createServerResponseMock();
+    const { mutate } = getTestServer({ req, res });
 
     const response = await mutate({ mutation: LOGIN_USER });
     expect(response.errors[0].message).toBe(
@@ -75,7 +64,7 @@ describe('Will test user login', () => {
   });
 
   test('Will not accept invalid username', async () => {
-    const { mutate } = getTestServer(ctx({}, {}));
+    const { mutate } = getTestServer();
     const response = await mutate({
       mutation: INVALID_USERNAME_LOGIN,
     });
@@ -83,7 +72,7 @@ describe('Will test user login', () => {
   });
 
   test('Will not accept invalid password', async () => {
-    const { mutate } = getTestServer(ctx({}, {}));
+    const { mutate } = getTestServer();
     const response = await mutate({
       mutation: INVALID_PASSWORD_LOGIN,
     });
@@ -92,15 +81,9 @@ describe('Will test user login', () => {
 
   test('Will login User', async () => {
     const setHeader = jest.fn();
-
-    const { mutate } = getTestServer(
-      ctx(
-        {},
-        {
-          setHeader,
-        }
-      )
-    );
+    const req = createIncomingRequestMock();
+    const res = createServerResponseMock({ setHeader });
+    const { mutate } = getTestServer({ req, res });
 
     const response = await mutate({ mutation: LOGIN_USER });
     expect(setHeader).toBeCalledTimes(1);
