@@ -1,7 +1,7 @@
-const usernameRegex = '^\\w{4,12}$';
-const passwordRegex = '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,32}$';
+const usernameRegex = "^\\w{4,12}$";
+const passwordRegex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,32}$";
 const emailRegex =
-  '^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$';
+  "^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
 
 export const areLoginUserInputsValid = ({ username, password }): boolean => {
   return username &&
@@ -28,6 +28,23 @@ export const areRegisterUserInputsValid = ({
     confirmPassword &&
     confirmPassword === password &&
     firstName &&
+    firstName.length >= 1 &&
+    firstName.length <= 24 &&
+    lastName &&
+    lastName.length >= 1 &&
+    lastName.length <= 24 &&
+    email &&
+    email.match(emailRegex)
+    ? true
+    : false;
+};
+
+export const areUpdateUserProfileInputsValid = ({
+  email,
+  firstName,
+  lastName,
+}) => {
+  return firstName &&
     firstName.length >= 1 &&
     firstName.length <= 24 &&
     lastName &&

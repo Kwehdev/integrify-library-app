@@ -1,11 +1,11 @@
-import { gql } from 'apollo-server-micro';
+import { gql } from "apollo-server-micro";
 import {
   createIncomingRequestMock,
   createServerResponseMock,
   mockUser,
-} from '../../../../testUtils/contextUtils';
+} from "../../../../testUtils/contextUtils";
 
-import getTestServer from '../../../../testUtils/getTestServer';
+import getTestServer from "../../../../testUtils/getTestServer";
 
 const ctx = (req, res) => {
   return {
@@ -40,23 +40,23 @@ beforeAll(async () => {
   await mutate({ mutation: REGISTER_VALID_USER });
 });
 
-describe('Will test user logout', () => {
-  test('Will not continue if user is not signed in.', async () => {
+describe("Will test user logout", () => {
+  test("Will not continue if user is not signed in.", async () => {
     const { mutate } = getTestServer();
 
     const response = await mutate({ mutation: LOGOUT_USER });
     expect(response.errors[0].message).toBe(
-      'You cannot perform this action while logged out.'
+      "You cannot perform this action while logged out."
     );
   });
 
-  test('Will logout User', async () => {
+  test("Will logout User", async () => {
     const setHeader = jest.fn();
     const req = createIncomingRequestMock({ user: mockUser });
     const res = createServerResponseMock({ setHeader });
     const { mutate } = getTestServer({ req, res });
 
     const response = await mutate({ mutation: LOGOUT_USER });
-    expect(setHeader).toBeCalledTimes(1);
+    expect(setHeader).toHaveBeenCalledWith("Set-Cookie", expect.any(String));
   });
 });

@@ -1,23 +1,23 @@
-import bcrypt from 'bcrypt';
+import bcrypt from "bcrypt";
 
 import {
   ConflictError,
   InvalidInputError,
   NotAllowedError,
-} from '../../helpers/apiError';
+} from "../../helpers/apiError";
 import {
   createNewUserInDB,
   findUserByEmail,
   findUserByUsername,
-} from '../../services/userServices';
-import { GQLMutation, UserPayload, UserRole } from '../../types';
-import { setCookie } from '../../utils/cookieUtils';
-import { areRegisterUserInputsValid } from '../../utils/inputValidation';
+} from "../../services/userServices";
+import { GQLMutation, UserPayload, UserRole } from "../../types";
+import { setCookie } from "../../utils/cookieUtils";
+import { areRegisterUserInputsValid } from "../../utils/inputValidation";
 
 const registerUser: GQLMutation = async (_parent, _args, _context) => {
   if (_context.req.user) {
     throw new NotAllowedError(
-      'You cannot perform this action while logged in.'
+      "You cannot perform this action while logged in."
     );
   }
   const { user } = JSON.parse(JSON.stringify(_args));
@@ -30,11 +30,11 @@ const registerUser: GQLMutation = async (_parent, _args, _context) => {
   const { username, password, email, firstName, lastName } = user;
 
   if (await findUserByUsername(username)) {
-    throw new ConflictError('This username is already in use.');
+    throw new ConflictError("This username is already in use.");
   }
 
   if (await findUserByEmail(email)) {
-    throw new ConflictError('This email is already in use.');
+    throw new ConflictError("This email is already in use.");
   }
 
   //Hash the user password before storage.
@@ -43,8 +43,8 @@ const registerUser: GQLMutation = async (_parent, _args, _context) => {
   //Assign the user role, giving them ADMIN if their name matches that in DB.
   const role: UserRole =
     username.toLocaleLowerCase() === process.env.ADMIN_NAME.toLocaleLowerCase()
-      ? 'ADMIN'
-      : 'USER';
+      ? "ADMIN"
+      : "USER";
 
   //Create User Document.
   const userDoc = await createNewUserInDB({
@@ -64,7 +64,7 @@ const registerUser: GQLMutation = async (_parent, _args, _context) => {
     role: userDoc.role,
   };
   await setCookie(_context, userPayload);
-  return 'Successfully signed in.';
+  return "Successfully signed in.";
 };
 
 export default registerUser;

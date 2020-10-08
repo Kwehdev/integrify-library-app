@@ -1,8 +1,8 @@
-import jwt from 'jsonwebtoken';
-import { serialize } from 'cookie';
+import jwt from "jsonwebtoken";
+import { serialize } from "cookie";
 
-import { GQLContext, UserPayload } from '../types';
-import { NextApiRequestCookies } from 'next/dist/next-server/server/api-utils';
+import { GQLContext, UserPayload } from "../types";
+import { NextApiRequestCookies } from "next/dist/next-server/server/api-utils";
 
 export const setCookie = async (
   _context: GQLContext,
@@ -13,23 +13,23 @@ export const setCookie = async (
 
     //Set Token as a httpOnly Cookie
     _context.res.setHeader(
-      'Set-Cookie',
-      serialize('token', token, {
+      "Set-Cookie",
+      serialize("token", token, {
         httpOnly: true,
         maxAge: parseInt(process.env.TOKEN_EXPIRY_TIME),
-        path: '/',
-        secure: process.env.NODE_ENV === 'production',
+        path: "/",
+        secure: process.env.NODE_ENV === "production",
       })
     );
   } else {
     //Set a dead cookie
     _context.res.setHeader(
-      'Set-Cookie',
-      serialize('token', '', {
+      "Set-Cookie",
+      serialize("token", "", {
         httpOnly: true,
         maxAge: -1,
-        path: '/',
-        secure: process.env.NODE_ENV === 'production',
+        path: "/",
+        secure: process.env.NODE_ENV === "production",
       })
     );
   }

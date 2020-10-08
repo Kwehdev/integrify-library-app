@@ -1,62 +1,62 @@
-import { Schema } from "mongoose"
+import { Schema } from "mongoose";
 
-import { DatabaseError, DocumentNotFoundError } from "../helpers/apiError"
-import Author, { AuthorObject } from "../models/Author"
-import removeAuthorFromBooks from "../utils/removeAuthorFromBooks"
+import { DatabaseError, DocumentNotFoundError } from "../helpers/apiError";
+import Author, { AuthorObject } from "../models/Author";
+import removeAuthorFromBooks from "../utils/removeAuthorFromBooks";
 
 export const createNewAuthorInDB = async (author: AuthorObject) => {
   try {
-    const authorDoc = await Author.create(author)
-    return authorDoc
+    const authorDoc = await Author.create(author);
+    return authorDoc;
   } catch (err) {
-    throw new DatabaseError(err)
+    throw new DatabaseError(err);
   }
-}
+};
 
 export const findAuthorById = async (authorId: Schema.Types.ObjectId) => {
   try {
-    return await Author.findById(authorId).exec()
+    return await Author.findById(authorId).exec();
   } catch (err) {
-    throw new DatabaseError(err)
+    throw new DatabaseError(err);
   }
-}
+};
 
 export const findAuthorByIdAndDelete = async (
   authorId: Schema.Types.ObjectId
 ) => {
   try {
-    const authorDoc = await Author.findByIdAndDelete(authorId).exec()
+    const authorDoc = await Author.findByIdAndDelete(authorId).exec();
     if (!authorDoc) {
-      throw new DocumentNotFoundError(`Author ${authorId} not found.`)
+      throw new DocumentNotFoundError(`Author ${authorId} not found.`);
     }
 
-    await removeAuthorFromBooks(authorDoc._id, authorDoc.books)
+    await removeAuthorFromBooks(authorDoc._id, authorDoc.books);
 
-    return authorDoc
+    return authorDoc;
   } catch (err) {
     if (err instanceof DocumentNotFoundError) {
-      throw err
+      throw err;
     }
-    throw new DatabaseError(err)
+    throw new DatabaseError(err);
   }
-}
+};
 
 export const findAuthorByIdAndUpdate = async (
   authorId: Schema.Types.ObjectId,
   updatedAuthor: Partial<AuthorObject>
 ) => {
   try {
-    const authorDoc = await Author.findById(authorId).exec()
+    const authorDoc = await Author.findById(authorId).exec();
     if (!authorDoc) {
-      throw new DocumentNotFoundError(`Author ${authorId} not found.`)
+      throw new DocumentNotFoundError(`Author ${authorId} not found.`);
     }
     // Create a new document using ES6 Spread syntax.
-    const newDocument = { ...authorDoc.toObject(), ...updatedAuthor }
-    return await Author.findByIdAndUpdate(authorId, newDocument).exec()
+    const newDocument = { ...authorDoc.toObject(), ...updatedAuthor };
+    return await Author.findByIdAndUpdate(authorId, newDocument).exec();
   } catch (err) {
     if (err instanceof DocumentNotFoundError) {
-      throw err
+      throw err;
     }
-    throw new DatabaseError(err)
+    throw new DatabaseError(err);
   }
-}
+};

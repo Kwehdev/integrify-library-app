@@ -1,12 +1,12 @@
-import type { IncomingMessage, ServerResponse } from 'http';
-import { Schema } from 'mongoose';
-import { Socket } from 'net';
-import { CustomRequest, UserPayload } from '../server/types';
+import type { IncomingMessage, ServerResponse } from "http";
+import { Schema } from "mongoose";
+import { Socket } from "net";
+import { CustomRequest, UserPayload } from "../server/types";
 
 export const mockUser: UserPayload = {
-  userId: new Schema.Types.ObjectId('key'),
-  username: 'Username',
-  role: 'USER',
+  userId: new Schema.Types.ObjectId("key"),
+  username: "Username",
+  role: "USER",
 };
 
 export const createIncomingRequestMock = (
@@ -27,7 +27,7 @@ export const createIncomingRequestMock = (
     eventNames: jest.fn(),
     getMaxListeners: jest.fn(),
     headers: {},
-    httpVersion: '1.1',
+    httpVersion: "1.1",
     httpVersionMajor: 1,
     httpVersionMinor: 1,
     isPaused: jest.fn(),
@@ -46,7 +46,7 @@ export const createIncomingRequestMock = (
     rawTrailers: [],
     read: jest.fn(),
     readable: true,
-    readableEncoding: 'utf-8',
+    readableEncoding: "utf-8",
     readableEnded: false,
     readableFlowing: null,
     readableHighWaterMark: 0,
@@ -118,7 +118,7 @@ export const createServerResponseMock = (
     shouldKeepAlive: false,
     socket,
     statusCode: 200,
-    statusMessage: 'OK',
+    statusMessage: "OK",
     uncork: jest.fn(),
     upgrading: false,
     useChunkedEncodingByDefault: false,

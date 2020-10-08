@@ -1,36 +1,36 @@
-import { DocumentNotFoundError } from "../../helpers/apiError"
-import { AuthorObject } from "../../models/Author"
-import { BookObject } from "../../models/Book"
+import { DocumentNotFoundError } from "../../helpers/apiError";
+import { AuthorObject } from "../../models/Author";
+import { BookObject } from "../../models/Book";
 import {
   createNewAuthorInDB,
   findAuthorById,
   findAuthorByIdAndDelete,
   findAuthorByIdAndUpdate,
-} from "../../services/authorServices"
-import { createNewBookInDB, findBookById } from "../../services/bookServices"
-import {} from "../../services/userServices"
+} from "../../services/authorServices";
+import { createNewBookInDB, findBookById } from "../../services/bookServices";
+import {} from "../../services/userServices";
 
 const newAuthor: AuthorObject = {
   name: "George R. R. Martin",
   books: [],
-}
+};
 
 describe("Perform general DB actions on data.", () => {
-  let authorId
-  let bookId
+  let authorId;
+  let bookId;
 
   test("Should create a new Author", async () => {
-    const authorDoc = await createNewAuthorInDB(newAuthor)
+    const authorDoc = await createNewAuthorInDB(newAuthor);
     //No need to compare every value at this point. If this matches, the User was created.
-    expect(authorDoc.name).toBe("George R. R. Martin")
-    authorId = authorDoc._id
-  })
+    expect(authorDoc.name).toBe("George R. R. Martin");
+    authorId = authorDoc._id;
+  });
 
   test("Should find the previously created Author.", async () => {
-    const authorDoc = await findAuthorById(authorId)
+    const authorDoc = await findAuthorById(authorId);
 
-    expect(authorDoc.name).toBe("George R. R. Martin")
-  })
+    expect(authorDoc.name).toBe("George R. R. Martin");
+  });
 
   test("Should create a new Book to be added to our author", async () => {
     const bookObj: BookObject = {
@@ -45,34 +45,34 @@ describe("Perform general DB actions on data.", () => {
       publisher: "Harper Collins",
       publishedDate: "01 Mar 2009",
       authors: [authorId],
-    }
+    };
 
-    const bookDoc = await createNewBookInDB(bookObj)
-    bookId = bookDoc._id
-    expect(bookDoc.title).toBe("A Game of Thrones")
-  })
+    const bookDoc = await createNewBookInDB(bookObj);
+    bookId = bookDoc._id;
+    expect(bookDoc.title).toBe("A Game of Thrones");
+  });
 
   test("Book should have been added to Author upon creation.", async () => {
-    const authorDoc = await findAuthorById(authorId)
+    const authorDoc = await findAuthorById(authorId);
 
-    expect(authorDoc.books).toContainEqual(bookId)
-  })
+    expect(authorDoc.books).toContainEqual(bookId);
+  });
 
   test("Should update the previously created Author.", async () => {
     await findAuthorByIdAndUpdate(authorId, {
       name: "Not George R. R. Martin",
-    })
-    const newAuthorDoc = await findAuthorById(authorId)
-    expect(newAuthorDoc.name).toBe("Not George R. R. Martin")
-  })
+    });
+    const newAuthorDoc = await findAuthorById(authorId);
+    expect(newAuthorDoc.name).toBe("Not George R. R. Martin");
+  });
 
   test("Should delete the previously created Author.", async () => {
-    await findAuthorByIdAndDelete(authorId)
+    await findAuthorByIdAndDelete(authorId);
 
-    await expect(findAuthorById(authorId)).resolves.toBe(null)
-  })
+    await expect(findAuthorById(authorId)).resolves.toBe(null);
+  });
 
   test("Book should be deleted, as there is no longer any author associated.", async () => {
-    await expect(findBookById(bookId)).resolves.toBe(null)
-  })
-})
+    await expect(findBookById(bookId)).resolves.toBe(null);
+  });
+});
