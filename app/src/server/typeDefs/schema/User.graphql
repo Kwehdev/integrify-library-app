@@ -1,5 +1,6 @@
 type Mutation {
   registerUser(user: UserRegisterInput): String
+  loginUser(user: UserLoginInput): String
 }
 
 input UserRegisterInput {
@@ -9,4 +10,9 @@ input UserRegisterInput {
   email: String!
   firstName: String!
   lastName: String!
+}
+
+input UserLoginInput {
+  username: String!
+  password: String!
 }
