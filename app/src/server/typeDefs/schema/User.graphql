@@ -2,6 +2,7 @@ type Mutation {
   registerUser(user: UserRegisterInput): String
   loginUser(user: UserLoginInput): String
   logoutUser: String
+  updateUserProfile(userId: ID, user: UserUpdateProfileInput): String
 }
 
 input UserRegisterInput {
@@ -16,4 +17,10 @@ input UserRegisterInput {
 input UserLoginInput {
   username: String!
   password: String!
+}
+
+input UserUpdateProfileInput {
+  firstName: String!
+  lastName: String!
+  email: String!
 }

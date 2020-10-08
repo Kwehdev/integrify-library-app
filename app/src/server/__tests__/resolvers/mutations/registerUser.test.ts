@@ -1,20 +1,11 @@
-import { gql } from "apollo-server-micro";
-import { ObjectId } from "mongodb";
-import { Schema } from "mongoose";
+import { gql } from 'apollo-server-micro'
 import {
   createIncomingRequestMock,
   createServerResponseMock,
-  mockUser,
-} from "../../../../testUtils/contextUtils";
+} from '../../../../testUtils/contextUtils'
+import { getMockUser } from '../../../../testUtils/dbUtils'
 
-import getTestServer from "../../../../testUtils/getTestServer";
-
-const ctx = (req, res) => {
-  return {
-    req: { ...createIncomingRequestMock, ...req },
-    res: { ...createServerResponseMock, ...res },
-  };
-};
+import getTestServer from '../../../../testUtils/getTestServer'
 
 const REGISTER_VALID_USER = gql`
   mutation {
@@ -29,15 +20,7 @@ const REGISTER_VALID_USER = gql`
       }
     )
   }
-`;
-
-const MUTATE_X = gql`
-  mutation {
-    mutateX(ids: [{ one: 1 }, { two: 2 }]) {
-      resultText
-    }
-  }
-`;
+`
 
 const REGISTER_INVALID_USER = gql`
   mutation {
@@ -52,39 +35,39 @@ const REGISTER_INVALID_USER = gql`
       }
     )
   }
-`;
+`
 
-describe("Will test user creation", () => {
-  test("Will not continue if user is signed in", async () => {
+describe('Will test user creation', () => {
+  test('Will not continue if user is signed in', async () => {
     const req = createIncomingRequestMock({
-      user: mockUser,
-    });
-    const res = createServerResponseMock();
-    const { mutate } = getTestServer({ req, res });
+      user: getMockUser(global.__userId, 'USER'),
+    })
+    const res = createServerResponseMock()
+    const { mutate } = getTestServer({ req, res })
 
-    const response = await mutate({ mutation: REGISTER_VALID_USER });
+    const response = await mutate({ mutation: REGISTER_VALID_USER })
     expect(response.errors[0].message).toBe(
-      "You cannot perform this action while logged in."
-    );
-  });
+      'You cannot perform this action while logged in.'
+    )
+  })
 
-  test("Will not accept incorrect inputs", async () => {
-    const req = createIncomingRequestMock();
-    const res = createServerResponseMock();
-    const { mutate } = getTestServer({ req, res });
+  test('Will not accept incorrect inputs', async () => {
+    const req = createIncomingRequestMock()
+    const res = createServerResponseMock()
+    const { mutate } = getTestServer({ req, res })
     const response = await mutate({
       mutation: REGISTER_INVALID_USER,
-    });
-    expect(response.errors[0].message).toBe("One or more Inputs were invalid.");
-  });
+    })
+    expect(response.errors[0].message).toBe('One or more Inputs were invalid.')
+  })
 
-  test("Will call setHeader, in prod this will return a cookie.", async () => {
-    const setHeader = jest.fn();
-    const req = createIncomingRequestMock();
-    const res = createServerResponseMock({ setHeader });
-    const { mutate } = getTestServer({ req, res });
+  test('Will call setHeader, in prod this will return a cookie.', async () => {
+    const setHeader = jest.fn()
+    const req = createIncomingRequestMock()
+    const res = createServerResponseMock({ setHeader })
+    const { mutate } = getTestServer({ req, res })
 
-    const response = await mutate({ mutation: REGISTER_VALID_USER });
-    expect(setHeader).toHaveBeenCalledWith("Set-Cookie", expect.any(String));
-  });
-});
+    const response = await mutate({ mutation: REGISTER_VALID_USER })
+    expect(setHeader).toHaveBeenCalledWith('Set-Cookie', expect.any(String))
+  })
+})

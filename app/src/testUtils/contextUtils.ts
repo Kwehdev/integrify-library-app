@@ -1,18 +1,13 @@
-import type { IncomingMessage, ServerResponse } from "http";
-import { Schema } from "mongoose";
-import { Socket } from "net";
-import { CustomRequest, UserPayload } from "../server/types";
-
-export const mockUser: UserPayload = {
-  userId: new Schema.Types.ObjectId("key"),
-  username: "Username",
-  role: "USER",
-};
+import type { IncomingMessage, ServerResponse } from 'http'
+import { Types } from 'mongoose'
+import { Socket } from 'net'
+import { UserObject } from '../server/models/User'
+import { CustomRequest, UserPayload } from '../server/types'
 
 export const createIncomingRequestMock = (
   req?: Partial<IncomingMessage & CustomRequest>
 ): IncomingMessage & CustomRequest => {
-  const socket = new Socket();
+  const socket = new Socket()
 
   return {
     _destroy: jest.fn(),
@@ -27,7 +22,7 @@ export const createIncomingRequestMock = (
     eventNames: jest.fn(),
     getMaxListeners: jest.fn(),
     headers: {},
-    httpVersion: "1.1",
+    httpVersion: '1.1',
     httpVersionMajor: 1,
     httpVersionMinor: 1,
     isPaused: jest.fn(),
@@ -46,7 +41,7 @@ export const createIncomingRequestMock = (
     rawTrailers: [],
     read: jest.fn(),
     readable: true,
-    readableEncoding: "utf-8",
+    readableEncoding: 'utf-8',
     readableEnded: false,
     readableFlowing: null,
     readableHighWaterMark: 0,
@@ -66,13 +61,13 @@ export const createIncomingRequestMock = (
     [Symbol.asyncIterator]: () =>
       (jest.fn() as unknown) as AsyncIterableIterator<unknown>,
     ...req,
-  };
-};
+  }
+}
 
 export const createServerResponseMock = (
   res?: Partial<ServerResponse>
 ): ServerResponse => {
-  const socket = new Socket();
+  const socket = new Socket()
 
   return {
     _destroy: jest.fn(),
@@ -118,7 +113,7 @@ export const createServerResponseMock = (
     shouldKeepAlive: false,
     socket,
     statusCode: 200,
-    statusMessage: "OK",
+    statusMessage: 'OK',
     uncork: jest.fn(),
     upgrading: false,
     useChunkedEncodingByDefault: false,
@@ -136,5 +131,5 @@ export const createServerResponseMock = (
     })),
     writeProcessing: jest.fn(),
     ...res,
-  };
-};
+  }
+}

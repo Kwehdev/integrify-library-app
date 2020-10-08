@@ -1,24 +1,17 @@
-import { gql } from "apollo-server-micro";
+import { gql } from 'apollo-server-micro'
 import {
   createIncomingRequestMock,
   createServerResponseMock,
-  mockUser,
-} from "../../../../testUtils/contextUtils";
+} from '../../../../testUtils/contextUtils'
+import { getMockUser } from '../../../../testUtils/dbUtils'
 
-import getTestServer from "../../../../testUtils/getTestServer";
-
-const ctx = (req, res) => {
-  return {
-    req: { ...createIncomingRequestMock, ...req },
-    res: { ...createServerResponseMock, ...res },
-  };
-};
+import getTestServer from '../../../../testUtils/getTestServer'
 
 const LOGOUT_USER = gql`
   mutation {
     logoutUser
   }
-`;
+`
 
 beforeAll(async () => {
   const REGISTER_VALID_USER = gql`
@@ -34,29 +27,31 @@ beforeAll(async () => {
         }
       )
     }
-  `;
+  `
 
-  const { mutate } = getTestServer();
-  await mutate({ mutation: REGISTER_VALID_USER });
-});
+  const { mutate } = getTestServer()
+  await mutate({ mutation: REGISTER_VALID_USER })
+})
 
-describe("Will test user logout", () => {
-  test("Will not continue if user is not signed in.", async () => {
-    const { mutate } = getTestServer();
+describe('Will test user logout', () => {
+  test('Will not continue if user is not signed in.', async () => {
+    const { mutate } = getTestServer()
 
-    const response = await mutate({ mutation: LOGOUT_USER });
+    const response = await mutate({ mutation: LOGOUT_USER })
     expect(response.errors[0].message).toBe(
-      "You cannot perform this action while logged out."
-    );
-  });
+      'You cannot perform this action while logged out.'
+    )
+  })
 
-  test("Will logout User", async () => {
-    const setHeader = jest.fn();
-    const req = createIncomingRequestMock({ user: mockUser });
-    const res = createServerResponseMock({ setHeader });
-    const { mutate } = getTestServer({ req, res });
+  test('Will logout User', async () => {
+    const setHeader = jest.fn()
+    const req = createIncomingRequestMock({
+      user: getMockUser(global.__userId, 'USER'),
+    })
+    const res = createServerResponseMock({ setHeader })
+    const { mutate } = getTestServer({ req, res })
 
-    const response = await mutate({ mutation: LOGOUT_USER });
-    expect(setHeader).toHaveBeenCalledWith("Set-Cookie", expect.any(String));
-  });
-});
+    const response = await mutate({ mutation: LOGOUT_USER })
+    expect(setHeader).toHaveBeenCalledWith('Set-Cookie', expect.any(String))
+  })
+})
