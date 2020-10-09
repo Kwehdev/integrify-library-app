@@ -1,0 +1,13 @@
+type Mutation {
+  createAuthor(author: AuthorCreateInput): Author
+}
+
+input AuthorCreateInput {
+  name: String!
+}
+
+type Author {
+  _id: ID!
+  name: String!
+  books: [Book]!
+}

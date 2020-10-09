@@ -1,3 +1,30 @@
 type Query {
   id: String
 }
+
+type Book {
+  ISBN: String!
+  imageURI: String!
+  title: String!
+  description: String!
+  status: BookStatus!
+  authors: [Author!]!
+  publisher: Publishers
+  publishedDate: String!
+  genre: [Genre!]!
+  borrowDate: String
+  dueDate: String
+}
+
+enum Publishers {
+  Harper_Collins
+}
+
+enum Genre {
+  Fantasy
+}
+
+enum BookStatus {
+  Available
+  Unavailable
+}
