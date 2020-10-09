@@ -3,6 +3,7 @@ type Mutation {
   loginUser(user: UserLoginInput): String
   logoutUser: String
   updateUserProfile(userId: ID, user: UserUpdateProfileInput): String
+  updateUserPassword(userId: ID, user: UserUpdatePasswordInput): String
 }
 
 input UserRegisterInput {
@@ -23,4 +24,10 @@ input UserUpdateProfileInput {
   firstName: String!
   lastName: String!
   email: String!
+}
+
+input UserUpdatePasswordInput {
+  oldPassword: String!
+  newPassword: String!
+  confirmNewPassword: String!
 }

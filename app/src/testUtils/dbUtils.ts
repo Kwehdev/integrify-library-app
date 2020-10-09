@@ -3,9 +3,10 @@ import User from '../server/models/User'
 import { UserPayload, UserRole } from '../server/types'
 
 export const createMockUser = async (role: UserRole) => {
+  //Password is 'SuperSecretPassword1'
   return await User.create({
     username: `${role}User`,
-    hash: 'Hash',
+    hash: '$2b$10$OhmjizZiTDgNQbTgX12yVOfGRZZHZHURKtYouUwAIjkkTskzK2oV6',
     firstName: 'FirstName',
     lastName: 'LastName',
     email: `${role}@domain.com`,

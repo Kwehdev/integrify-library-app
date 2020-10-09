@@ -1,7 +1,7 @@
-const usernameRegex = "^\\w{4,12}$";
-const passwordRegex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,32}$";
+const usernameRegex = '^\\w{4,12}$'
+const passwordRegex = '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,32}$'
 const emailRegex =
-  "^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
+  '^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$'
 
 export const areLoginUserInputsValid = ({ username, password }): boolean => {
   return username &&
@@ -9,8 +9,8 @@ export const areLoginUserInputsValid = ({ username, password }): boolean => {
     password &&
     password.match(passwordRegex)
     ? true
-    : false;
-};
+    : false
+}
 
 export const areRegisterUserInputsValid = ({
   username,
@@ -36,8 +36,8 @@ export const areRegisterUserInputsValid = ({
     email &&
     email.match(emailRegex)
     ? true
-    : false;
-};
+    : false
+}
 
 export const areUpdateUserProfileInputsValid = ({
   email,
@@ -53,5 +53,16 @@ export const areUpdateUserProfileInputsValid = ({
     email &&
     email.match(emailRegex)
     ? true
-    : false;
-};
+    : false
+}
+
+export const areUpdateUserPasswordInputsValid = ({
+  newPassword,
+  confirmNewPassword,
+}) => {
+  return newPassword &&
+    newPassword.match(passwordRegex) &&
+    newPassword === confirmNewPassword
+    ? true
+    : false
+}

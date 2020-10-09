@@ -4,6 +4,7 @@ import {
   NotAllowedError,
   UnauthorizedError,
 } from '../../helpers/apiError'
+import { UserObject } from '../../models/User'
 import {
   findUserByEmail,
   findUserByIdAndUpdate,
@@ -21,8 +22,7 @@ const updateUserProfile: GQLMutation = async (_parent, _args, _context) => {
   const { userId, user } = JSON.parse(JSON.stringify(_args))
 
   //ADMIN role will bypass this check.
-  if (_context.req.user.role === 'USER') {
-    console.log(_context.req.user.role)
+  if (_context.req.user.role !== 'ADMIN') {
     if (!_context.req.user.userId.equals(userId)) {
       throw new UnauthorizedError()
     }
