@@ -4,6 +4,7 @@ type Mutation {
   logoutUser: String
   updateUserProfile(userId: ID, user: UserUpdateProfileInput): String
   updateUserPassword(userId: ID, user: UserUpdatePasswordInput): String
+  resetUserPasswordRequest(email: String!): String
 }
 
 input UserRegisterInput {
