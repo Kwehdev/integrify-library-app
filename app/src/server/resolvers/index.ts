@@ -10,6 +10,7 @@ import updateUserProfile from './mutations/updateUserProfile'
 //Author
 import createAuthor from './mutations/createAuthor'
 import deleteAuthor from './mutations/deleteAuthor'
+import updateAuthor from './mutations/updateAuthor'
 
 const resolvers = {
   Mutation: {
@@ -22,6 +23,7 @@ const resolvers = {
 
     createAuthor,
     deleteAuthor,
+    updateAuthor,
   },
 }
 

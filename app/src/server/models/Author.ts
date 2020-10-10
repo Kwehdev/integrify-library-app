@@ -1,12 +1,12 @@
-import mongoose, { Document, Schema } from "mongoose";
-import { BookDocument } from "./Book";
+import mongoose, { Document, Schema } from 'mongoose'
+import { BookDocument } from './Book'
 
 export type AuthorObject = {
-  name: string;
-  books: BookDocument["_id"][];
-};
+  name: string
+  books: BookDocument['_id'][]
+}
 
-export type AuthorDocument = Document & AuthorObject;
+export type AuthorDocument = Document & AuthorObject
 
 const authorSchema = new mongoose.Schema({
   name: {
@@ -17,11 +17,11 @@ const authorSchema = new mongoose.Schema({
     {
       type: Schema.Types.ObjectId,
       required: true,
-      ref: "Book",
+      ref: 'Book',
     },
   ],
-});
+})
 
 // //Export Model if already created, if not, define it.
 export default (mongoose.models.Author as mongoose.Model<AuthorDocument>) ||
-  mongoose.model<AuthorDocument>("Author", authorSchema);
+  mongoose.model<AuthorDocument>('Author', authorSchema)

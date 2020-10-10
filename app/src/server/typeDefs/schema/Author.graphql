@@ -1,10 +1,15 @@
 type Mutation {
   createAuthor(author: AuthorCreateInput): Author
   deleteAuthor(authorId: ID): Author
+  updateAuthor(authorId: ID, author: AuthorUpdateInput): Author
 }
 
 input AuthorCreateInput {
   name: String!
+}
+
+input AuthorUpdateInput {
+  name: String
 }
 
 type Author {
