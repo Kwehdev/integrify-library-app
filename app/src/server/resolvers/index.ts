@@ -1,6 +1,7 @@
 //Book
 import createBook from './mutations/createBook'
 import updateBook from './mutations/updateBook'
+import deleteBook from './mutations/deleteBook'
 
 //User
 import loginUser from './mutations/loginUser'
@@ -19,6 +20,7 @@ const resolvers = {
   Mutation: {
     createBook,
     updateBook,
+    deleteBook,
 
     registerUser,
     loginUser,
