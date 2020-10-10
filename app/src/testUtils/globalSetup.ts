@@ -5,6 +5,7 @@ declare global {
     interface Global {
       __userId: Types.ObjectId
       __adminId: Types.ObjectId
+      __authorId: Types.ObjectId
     }
   }
 }
@@ -12,4 +13,5 @@ declare global {
 export default async () => {
   global.__userId = undefined
   global.__adminId = undefined
+  global.__authorId = undefined
 }

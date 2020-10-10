@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import { createNewAuthorInDB } from '../server/services/authorServices'
 import { createMockUser } from './dbUtils'
 process.env.ADMIN_NAME = 'KwehDev'
 process.env.JWT_PRIVATE_KEY = 'NotSoPrivateAnymoreKey'
@@ -21,6 +22,11 @@ beforeAll(async () => {
   global.__userId = userDoc._id
   const adminDoc = await createMockUser('ADMIN')
   global.__adminId = adminDoc._id
+  const authorDoc = await createNewAuthorInDB({
+    name: "George R. R. Martin",
+    books: []
+  })
+  global.__authorId = authorDoc._id
 })
 
 afterAll(async () => {
