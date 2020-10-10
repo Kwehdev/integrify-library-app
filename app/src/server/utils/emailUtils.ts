@@ -1,13 +1,13 @@
 import sgMail from '@sendgrid/mail'
-sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+// sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
 export const sendEmail = async (email: Email) => {
-  console.log('sending')
-  try {
-    await sgMail.send(email)
-  } catch (err) {
-    console.error(err)
-  }
+  //Replace with Amazon SES.
+  // try {
+  //   await sgMail.send(email)
+  // } catch (err) {
+  //   console.error(err)
+  // }
 }
 
 type EmailConstructor = (
