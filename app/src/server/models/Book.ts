@@ -60,6 +60,14 @@ const bookSchema = new mongoose.Schema({
   dueDate: String,
 })
 
+bookSchema.post('findOneAndUpdate', async (doc) => {
+  return await doc.populate('authors').execPopulate()
+})
+
+bookSchema.post('save', async (doc) => {
+  return await doc.populate('authors').execPopulate()
+})
+
 // //Export Model if already created, if not, define it.
 export default (mongoose.models.Book as mongoose.Model<BookDocument>) ||
   mongoose.model<BookDocument>('Book', bookSchema)

@@ -58,7 +58,11 @@ describe('Test authorization', () => {
     expect(response.data.updateBook).toMatchObject({
       _id: expect.any(String),
       title: 'A Game of Thrones',
-      authors: [null],
+      authors: [
+        {
+          name: 'George R. R. Martin',
+        },
+      ],
     })
   })
 })

@@ -30,9 +30,11 @@ describe('Test authorization', () => {
     expect(response.errors[0].message).toBe('Access Denied')
   })
 
-  test("Will return deleted author when user is admin", async () => {
-    const req = createIncomingRequestMock({user: getMockUser(global.__adminId, 'ADMIN')})
-        const res = createServerResponseMock()
+  test('Will return deleted author when user is admin', async () => {
+    const req = createIncomingRequestMock({
+      user: getMockUser(global.__adminId, 'ADMIN'),
+    })
+    const res = createServerResponseMock()
     const { mutate } = getTestServer({ req, res })
 
     const response = await mutate({
@@ -49,10 +51,11 @@ describe('Test authorization', () => {
       `,
     })
 
+    //We have not added any books, therefore, books will be null.
     expect(response.data.deleteAuthor).toMatchObject({
       _id: expect.any(String),
       name: 'George R. R. Martin',
-      books: [],
+      books: [null],
     })
   })
 })

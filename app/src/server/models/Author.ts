@@ -22,6 +22,14 @@ const authorSchema = new mongoose.Schema({
   ],
 })
 
+authorSchema.post('findOneAndUpdate', async (doc) => {
+  return await doc.populate('books').execPopulate()
+})
+
+authorSchema.post('save', async (doc) => {
+  return await doc.populate('books').execPopulate()
+})
+
 // //Export Model if already created, if not, define it.
 export default (mongoose.models.Author as mongoose.Model<AuthorDocument>) ||
   mongoose.model<AuthorDocument>('Author', authorSchema)

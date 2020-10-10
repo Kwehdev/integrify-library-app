@@ -14,7 +14,7 @@ type Book {
   title: String!
   description: String!
   status: BookStatus!
-  authors: [Author]!
+  authors: [Author!]!
   publisher: Publishers
   publishedDate: String!
   genre: [Genre!]!
