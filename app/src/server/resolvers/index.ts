@@ -3,6 +3,7 @@ import createBook from './mutations/createBook'
 import updateBook from './mutations/updateBook'
 import deleteBook from './mutations/deleteBook'
 import borrowBook from './mutations/borrowBook'
+import returnBook from './mutations/returnBook'
 
 //User
 import loginUser from './mutations/loginUser'
@@ -23,6 +24,7 @@ const resolvers = {
     updateBook,
     deleteBook,
     borrowBook,
+    returnBook,
 
     registerUser,
     loginUser,
