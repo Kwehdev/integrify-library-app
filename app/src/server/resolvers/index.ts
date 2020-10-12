@@ -1,4 +1,6 @@
 //Book
+import getBooks from './queries/getBooks'
+
 import createBook from './mutations/createBook'
 import updateBook from './mutations/updateBook'
 import deleteBook from './mutations/deleteBook'
@@ -19,6 +21,10 @@ import deleteAuthor from './mutations/deleteAuthor'
 import updateAuthor from './mutations/updateAuthor'
 
 const resolvers = {
+  Query: {
+    getBooks,
+  },
+
   Mutation: {
     createBook,
     updateBook,

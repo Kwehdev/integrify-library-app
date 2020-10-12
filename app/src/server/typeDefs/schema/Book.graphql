@@ -1,5 +1,5 @@
 type Query {
-  id: String
+  getBooks(query: BookQueryInput): [Book]!
 }
 
 type Mutation {
@@ -49,6 +49,16 @@ input BookCreateInput {
   publisher: Publishers
   publishedDate: String!
   genre: [Genre!]
+}
+
+input BookQueryInput {
+  id: ID
+  limit: Int
+  title: String
+  author: [ID!]
+  status: String
+  genre: String
+  ISBN: String
 }
 
 input BookUpdateInput {

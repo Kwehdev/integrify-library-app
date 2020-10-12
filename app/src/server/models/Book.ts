@@ -47,6 +47,10 @@ const bookSchema = new mongoose.Schema({
       ref: 'Author',
     },
   ],
+  genre: {
+    type: [String],
+    required: true,
+  },
   publisher: {
     type: String,
     required: true,
