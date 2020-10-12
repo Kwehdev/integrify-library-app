@@ -1,16 +1,14 @@
 import Head from 'next/head'
 
-import Header from '../src/client/components/Header'
-import styles from '../styles/Home.module.css'
+import PageLayout from '../src/client/components/PageLayout'
 
 export default function Home() {
   return (
-    <div>
+    <PageLayout>
       <Head>
         <title>LibraryApp - Home</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <Header />
-    </div>
+    </PageLayout>
   )
 }
