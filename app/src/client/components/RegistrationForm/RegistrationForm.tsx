@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import ThemeContext from '../../context/ThemeContext'
 import { validateFormInput } from '../../utils/validateInput'
 import styles from './registrationform.module.css'
+import { UserContext } from '../../context/UserContext/UserContext'
 
 const initialState = {
   username: '',
@@ -22,6 +23,7 @@ export default function RegistrationForm() {
     'Please fill in the required fields.'
   )
   const { appTheme, setCurrentTheme } = useContext(ThemeContext)
+  const { user, reAuthenticate, isAuthenticated } = useContext(UserContext)
   const { primaryTextColor, formColor, formInputColor } = appTheme
 
   const router = useRouter()
@@ -55,13 +57,16 @@ export default function RegistrationForm() {
 
     try {
       await request('/api/v1/graphql', query, variables)
+      await reAuthenticate()
       setFormStatus(
         'Registered Successfully. You will be redirected in 5 seconds.'
       )
+
       setTimeout(() => {
         router.push('/')
       }, 5000)
     } catch (e) {
+      console.log(e)
       setFormStatus(e.response.errors[0].message)
       setLoading(false)
     }

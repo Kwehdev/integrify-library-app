@@ -38,7 +38,7 @@ export const setCookie = async (
 const getToken = (userPayload: UserPayload) => {
   //Get a signed JWT Token
   return jwt.sign(userPayload, process.env.JWT_PRIVATE_KEY, {
-    expiresIn: process.env.TOKEN_EXPIRY_TIME,
+    expiresIn: parseInt(process.env.TOKEN_EXPIRY_TIME) * 1000,
   })
 }
 
