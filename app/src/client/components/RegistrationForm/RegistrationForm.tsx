@@ -1,7 +1,9 @@
 import { useContext, useState } from 'react'
+import { request, gql } from 'graphql-request'
+import { useRouter } from 'next/router'
 
 import ThemeContext from '../../context/ThemeContext'
-import { isFormInputValid, validateFormInput } from '../../utils/validateInput'
+import { validateFormInput } from '../../utils/validateInput'
 import styles from './registrationform.module.css'
 
 const initialState = {
@@ -16,9 +18,13 @@ const initialState = {
 export default function RegistrationForm() {
   const [formInputs, setFormInputs] = useState(initialState)
   const [loading, setLoading] = useState(false)
-
+  const [formStatus, setFormStatus] = useState(
+    'Please fill in the required fields.'
+  )
   const { appTheme, setCurrentTheme } = useContext(ThemeContext)
   const { primaryTextColor, formColor, formInputColor } = appTheme
+
+  const router = useRouter()
 
   const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = ev.target
@@ -33,9 +39,32 @@ export default function RegistrationForm() {
     ev.target.setCustomValidity(error)
   }
 
-  const handleSubmit = (ev: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (ev: React.FormEvent<HTMLFormElement>) => {
     ev.preventDefault()
     setLoading(true)
+
+    const query = gql`
+      mutation RegisterUser($user: UserRegisterInput) {
+        registerUser(user: $user)
+      }
+    `
+
+    const variables = {
+      user: formInputs,
+    }
+
+    try {
+      await request('/api/v1/graphql', query, variables)
+      setFormStatus(
+        'Registered Successfully. You will be redirected in 5 seconds.'
+      )
+      setTimeout(() => {
+        router.push('/')
+      }, 5000)
+    } catch (e) {
+      setFormStatus(e.response.errors[0].message)
+      setLoading(false)
+    }
   }
 
   const disabled = loading
@@ -44,12 +73,11 @@ export default function RegistrationForm() {
     <form
       onSubmit={handleSubmit}
       className={styles.container}
-      style={{ backgroundColor: formColor }}
+      style={{ color: primaryTextColor, backgroundColor: formColor }}
     >
       <legend className={styles.legend}>
-        <h2 style={{ color: primaryTextColor }} className={styles.title}>
-          Sign Up
-        </h2>
+        <h2 className={styles.title}>Sign Up</h2>
+        <p className={styles.status}>{formStatus}</p>
       </legend>
       <fieldset
         className={styles.fieldset}

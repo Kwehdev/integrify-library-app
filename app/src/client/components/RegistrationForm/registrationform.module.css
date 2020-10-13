@@ -9,6 +9,11 @@
   text-align: center;
 }
 
+.status {
+  font-size: 1em;
+  text-align: center;
+}
+
 .fieldset {
   padding: 2%;
   border: none;
