@@ -43,7 +43,7 @@ const getToken = (userPayload: UserPayload) => {
 }
 
 export const getPayloadFromCookie = (cookies: NextApiRequestCookies) => {
-  if (!cookies) {
+  if (Object.keys(cookies).length === 0) {
     return undefined
   }
 
