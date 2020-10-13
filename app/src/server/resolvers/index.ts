@@ -8,6 +8,8 @@ import borrowBook from './mutations/borrowBook'
 import returnBook from './mutations/returnBook'
 
 //User
+import getUserProfile from './queries/getUserProfile'
+
 import loginUser from './mutations/loginUser'
 import logoutUser from './mutations/logoutUser'
 import registerUser from './mutations/registerUser'
@@ -22,6 +24,7 @@ import updateAuthor from './mutations/updateAuthor'
 
 const resolvers = {
   Query: {
+    getUserProfile,
     getBooks,
   },
 

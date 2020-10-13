@@ -1,3 +1,7 @@
+type Query {
+  getUserProfile: UserProfile
+}
+
 type Mutation {
   registerUser(user: UserRegisterInput): String
   loginUser(user: UserLoginInput): String
@@ -5,6 +9,15 @@ type Mutation {
   updateUserProfile(userId: ID, user: UserUpdateProfileInput): String
   updateUserPassword(userId: ID, user: UserUpdatePasswordInput): String
   resetUserPasswordRequest(email: String!): String
+}
+
+type UserProfile {
+  userId: ID
+  username: String
+  role: String
+  firstName: String
+  lastName: String
+  email: String
 }
 
 input UserRegisterInput {
