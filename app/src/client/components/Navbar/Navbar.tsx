@@ -33,6 +33,11 @@ export default function Navbar() {
             <a className={styles.menuLink}>Home</a>
           </Link>
         </li>
+        <li className={styles.menuItem}>
+          <Link href='/about'>
+            <a className={styles.menuLink}>About</a>
+          </Link>
+        </li>
       </ul>
       <ul className={styles.menu} style={{ marginLeft: `auto` }}>
         {isAuthenticated ? (

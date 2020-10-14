@@ -1,0 +1,8 @@
+.container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  flex-grow: 1;
+  background: url('/mainBg.jpg') no-repeat center/cover;
+  opacity: 0.9;
+}

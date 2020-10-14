@@ -26,6 +26,8 @@ export default function RegistrationForm() {
   const { user, reAuthenticate, isAuthenticated } = useContext(UserContext)
   const { primaryTextColor, formColor, formInputColor } = appTheme
 
+  const shouldRedirect = isAuthenticated
+
   const router = useRouter()
 
   const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
@@ -73,6 +75,17 @@ export default function RegistrationForm() {
   }
 
   const disabled = loading
+
+  if (shouldRedirect) {
+    setTimeout(() => {
+      router.push('/')
+    }, 5000)
+    return (
+      <h1 className={styles.title} style={{ color: primaryTextColor }}>
+        You are already logged in. You will be redirected in 5 seconds.
+      </h1>
+    )
+  }
 
   return (
     <form
