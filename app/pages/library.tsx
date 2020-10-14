@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import React, { useContext } from 'react'
+import BookDisplay from '../src/client/components/BookDisplay'
 import FilterMenu from '../src/client/components/FilterMenu'
 import PageLayout from '../src/client/components/PageLayout'
 import ThemeContext from '../src/client/context/ThemeContext'
@@ -26,7 +27,9 @@ export default function Library() {
         >
           <FilterMenu />
         </div>
-        <div className={styles.bookContainer}>Books</div>
+        <div className={styles.bookContainer}>
+          <BookDisplay />
+        </div>
       </main>
     </PageLayout>
   )

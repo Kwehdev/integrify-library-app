@@ -21,6 +21,15 @@ export const findAuthorById = async (authorId: Types.ObjectId) => {
   }
 }
 
+export const findAuthorByName = async (authorName: string) => {
+  const authorNameRegex = new RegExp(`^${authorName}$`, 'i')
+  try {
+    return await Author.findOne({ name: authorNameRegex }).exec()
+  } catch (err) {
+    throw new DatabaseError(err)
+  }
+}
+
 export const findAuthorByIdAndDelete = async (authorId: Types.ObjectId) => {
   try {
     const authorDoc = await Author.findByIdAndDelete(authorId).exec()

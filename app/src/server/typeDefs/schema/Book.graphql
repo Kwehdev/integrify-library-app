@@ -55,7 +55,7 @@ input BookQueryInput {
   id: ID
   limit: Int
   title: String
-  author: [ID!]
+  author: String
   status: String
   genre: String
   ISBN: String

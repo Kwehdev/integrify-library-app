@@ -16,33 +16,10 @@ export const createNewBookInDB = async (book: BookObject) => {
   }
 }
 
-export const findBooksInDB = async (args: any = {}) => {
-  const { _id, limit, title, author, status, genre, ISBN } = args
-  //Ensure only keys we want are passed through, and only if they exist.
-  const query = {
-    ...(title && { title }),
-    ...(status && { status }),
-    ...(ISBN && { ISBN }),
-  }
-  //Set default limit to 0/unlimited, assign passed limit if applicable.
-  let limitOfResults: number = 0
-  if (limit) {
-    limitOfResults = Array.isArray(limit) ? parseInt(limit[0]) : parseInt(limit)
-  }
-  const queryKeys = Object.keys(query)
-  //Assign RegExp to each key.
-  const dbQuery = Object.assign(
-    {},
-    {
-      ...(_id && { _id }),
-      ...(author && { authors: author }),
-      ...(genre && { genre: genre }),
-    },
-    ...queryKeys.map((key) => ({
-      [key]: new RegExp(query[key], 'i'),
-    }))
-  )
-  //Note - If no params were passed, dbQuery will be an empty object, returning all books (as intended)
+export const findBooksInDB = async (
+  dbQuery: any = {},
+  limitOfResults: number
+) => {
   return await Book.find(dbQuery).limit(limitOfResults).exec()
 }
 
