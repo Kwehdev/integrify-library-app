@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useMemo } from 'react'
 import Link from 'next/link'
 
 import styles from './navbar.module.css'
@@ -25,20 +25,39 @@ export default function Navbar() {
 
   return (
     <nav className={styles.container}>
-      <div className={styles.navMenu__right}>
-        {isAuthenticated ? (
-          <>
-            <p className={styles.navText}>
-              Signed in as <strong>{user.username}</strong>
-            </p>
-            <button onClick={handleLogout}>Logout</button>
-          </>
-        ) : (
-          <Link href='/users/register'>
-            <a className={styles.navLink}>Register</a>
+      <ul className={styles.menu}>
+        <li className={styles.menuItem}>
+          <Link href='/'>
+            <a className={styles.menuLink}>Home</a>
           </Link>
-        )}
-      </div>
+        </li>
+      </ul>
+
+      {isAuthenticated ? (
+        <ul className={styles.menu} style={{ marginLeft: `auto` }}>
+          <li className={styles.menuItem}>
+            <p className={styles.greeting}>
+              Hello, <strong>{user.username}</strong>
+            </p>
+          </li>
+          <li className={styles.menuItem}>
+            <button
+              onClick={handleLogout}
+              className={`${styles.menuItem} ${styles.menuBtn}`}
+            >
+              Log out
+            </button>
+          </li>
+        </ul>
+      ) : (
+        <ul className={styles.menu} style={{ marginLeft: `auto` }}>
+          <li className={styles.menuItem}>
+            <Link href='/users/register'>
+              <a className={styles.menuLink}>Register</a>
+            </Link>
+          </li>
+        </ul>
+      )}
     </nav>
   )
 }

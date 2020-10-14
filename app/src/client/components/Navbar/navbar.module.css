@@ -5,16 +5,34 @@
   align-items: center;
 }
 
-.navMenu__right {
-  margin-left: auto;
+.menu {
+  display: flex;
+  align-items: center;
+  list-style-type: none;
 }
 
-.navText {
+.menuItem {
   padding: 0 15px;
-  margin: 0;
+  font-size: 1em;
 }
 
-.navLink {
-  margin: 0;
-  padding: 0 15px;
+.menuBtn {
+  border: none;
+  background-color: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+.menuBtn:focus {
+  outline: none;
+}
+
+.menuLink:hover,
+.menuBtn:hover {
+  opacity: 0.8;
+}
+
+.menuLink:active,
+.menuBtn:active {
+  opacity: 0.6;
 }

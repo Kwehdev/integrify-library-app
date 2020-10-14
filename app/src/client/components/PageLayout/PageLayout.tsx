@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import React, { useContext } from 'react'
 import ThemeContext from '../../context/ThemeContext'
 import Header from '../Header'
@@ -12,6 +13,12 @@ export default function PageLayout({ children }) {
       className={styles.container}
       style={{ backgroundColor: primaryBGColor }}
     >
+      <Head>
+        <link
+          href='https://fonts.googleapis.com/css2?family=Roboto&display=swap'
+          rel='stylesheet'
+        ></link>
+      </Head>
       <Header />
       {children}
     </div>
