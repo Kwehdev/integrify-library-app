@@ -12,8 +12,20 @@
 }
 
 .menuItem {
-  padding: 0 15px;
   font-size: 1em;
+  margin: 0 0.5vw;
+}
+
+.menuIcon {
+  font-size: 1.5em;
+}
+
+.menuSun {
+  fill: rgb(245, 189, 85);
+}
+
+.menuMoon {
+  fill: silver;
 }
 
 .menuBtn {
