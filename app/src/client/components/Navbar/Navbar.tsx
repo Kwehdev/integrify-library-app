@@ -34,6 +34,11 @@ export default function Navbar() {
           </Link>
         </li>
         <li className={styles.menuItem}>
+          <Link href='/library'>
+            <a className={styles.menuLink}>Library</a>
+          </Link>
+        </li>
+        <li className={styles.menuItem}>
           <Link href='/about'>
             <a className={styles.menuLink}>About</a>
           </Link>

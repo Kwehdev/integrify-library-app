@@ -1,0 +1,13 @@
+.container {
+  display: flex;
+  flex-grow: 1;
+  height: 100%;
+}
+
+.sideBar {
+  width: 20%;
+}
+
+.bookContainer {
+  width: 80%;
+}
