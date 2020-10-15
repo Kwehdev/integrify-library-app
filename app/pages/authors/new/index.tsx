@@ -1,11 +1,11 @@
 import Head from 'next/head'
 import React, { useContext } from 'react'
-import PageLayout from '../../src/client/components/PageLayout'
-import ThemeContext from '../../src/client/context/ThemeContext'
-import styles from '../../styles/Login.module.css'
-import CreateAuthorForm from '../../src/client/components/CreateAuthorForm'
+import PageLayout from '../../../src/client/components/PageLayout'
+import ThemeContext from '../../../src/client/context/ThemeContext'
+import styles from '../../../styles/NewAuthor.module.css'
+import CreateAuthorForm from '../../../src/client/components/CreateAuthorForm'
 
-export default function New() {
+export default function NewAuthor() {
   const { appTheme } = useContext(ThemeContext)
   const { primaryBGColor } = appTheme
 
