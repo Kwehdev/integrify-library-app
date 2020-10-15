@@ -1,5 +1,9 @@
 import { ForbiddenError } from 'apollo-server-micro'
-import { createNewAuthorInDB } from '../../services/authorServices'
+import { ConflictError } from '../../helpers/apiError'
+import {
+  createNewAuthorInDB,
+  findAuthorByName,
+} from '../../services/authorServices'
 import { GQLMutation } from '../../types'
 
 const createAuthor: GQLMutation = async (_parent, _args, _context) => {
@@ -10,6 +14,11 @@ const createAuthor: GQLMutation = async (_parent, _args, _context) => {
   }
 
   const { author } = JSON.parse(JSON.stringify(_args))
+  const { name } = author
+  const authorDoc = await findAuthorByName(name)
+  if (authorDoc) {
+    throw new ConflictError('An author already exists with that name.')
+  }
   return await createNewAuthorInDB(author)
 }
 

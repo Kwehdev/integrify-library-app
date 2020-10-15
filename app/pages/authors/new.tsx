@@ -2,11 +2,11 @@ import Head from 'next/head'
 import React, { useContext } from 'react'
 import PageLayout from '../../src/client/components/PageLayout'
 import ThemeContext from '../../src/client/context/ThemeContext'
-import LoginForm from '../../src/client/components/LoginForm'
 import styles from '../../styles/Login.module.css'
+import CreateAuthorForm from '../../src/client/components/CreateAuthorForm'
 
 export default function New() {
-  const { appTheme, setCurrentTheme } = useContext(ThemeContext)
+  const { appTheme } = useContext(ThemeContext)
   const { primaryBGColor } = appTheme
 
   return (
@@ -18,7 +18,9 @@ export default function New() {
       <main
         className={styles.container}
         style={{ backgroundColor: primaryBGColor }}
-      ></main>
+      >
+        <CreateAuthorForm />
+      </main>
     </PageLayout>
   )
 }
