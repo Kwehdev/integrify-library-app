@@ -3,13 +3,15 @@ import Link from 'next/link'
 import { RiMoonLine, RiSunFill } from 'react-icons/ri'
 
 import styles from './navbar.module.css'
-import { UserContext } from '../../context/UserContext/UserContext'
 import request, { gql } from 'graphql-request'
 import { useRouter } from 'next/router'
 import ThemeContext, { DarkTheme, LightTheme } from '../../context/ThemeContext'
+import { AuthContext } from '../../context/AuthContext/AuthContext'
 
 export default function Navbar() {
-  const { user, reAuthenticate, isAuthenticated } = useContext(UserContext)
+  const { user, reAuthenticate, isAuthenticated, isAdmin } = useContext(
+    AuthContext
+  )
   const { appTheme, setCurrentTheme } = useContext(ThemeContext)
   const router = useRouter()
 
@@ -52,6 +54,13 @@ export default function Navbar() {
                 Hello, <strong>{user.username}</strong>
               </p>
             </li>
+            {isAdmin && (
+              <li className={styles.menuItem}>
+                <Link href='/admin'>
+                  <a className={styles.menuLink}>Admin</a>
+                </Link>
+              </li>
+            )}
             <li className={styles.menuItem}>
               <button
                 onClick={handleLogout}

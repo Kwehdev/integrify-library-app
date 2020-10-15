@@ -4,8 +4,8 @@ import { useRouter } from 'next/router'
 
 import ThemeContext from '../../context/ThemeContext'
 import styles from './loginform.module.css'
-import { UserContext } from '../../context/UserContext/UserContext'
 import { validateFormInput } from '../../utils/validateInput'
+import { AuthContext } from '../../context/AuthContext/AuthContext'
 
 const initialState = {
   username: '',
@@ -20,10 +20,8 @@ export default function RegistrationForm() {
   )
 
   const { appTheme, setCurrentTheme } = useContext(ThemeContext)
-  const { user, reAuthenticate, isAuthenticated } = useContext(UserContext)
+  const { user, reAuthenticate, isAuthenticated } = useContext(AuthContext)
   const { primaryTextColor, formColor, formInputColor } = appTheme
-
-  const shouldRedirect = isAuthenticated
 
   const router = useRouter()
 
@@ -52,13 +50,7 @@ export default function RegistrationForm() {
     try {
       await request('/api/v1/graphql', query, variables)
       await reAuthenticate()
-      setFormStatus(
-        'Successfully logged in. You will be redirected in 5 seconds.'
-      )
-
-      setTimeout(() => {
-        router.push('/')
-      }, 5000)
+      setFormStatus('Login Successful. You will be redirected shortly.')
     } catch (e) {
       console.log(e)
       setFormStatus(e.response.errors[0].message)
@@ -67,17 +59,6 @@ export default function RegistrationForm() {
   }
 
   const disabled = loading
-
-  if (shouldRedirect) {
-    setTimeout(() => {
-      router.push('/')
-    }, 5000)
-    return (
-      <h1 className={styles.title} style={{ color: primaryTextColor }}>
-        You are already logged in. You will be redirected in 5 seconds.
-      </h1>
-    )
-  }
 
   return (
     <form

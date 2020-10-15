@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import { Provider } from 'react-redux'
+import { AuthProvider } from '../src/client/context/AuthContext/AuthContext'
 import ThemeContext, {
   DarkTheme,
   Theme,
 } from '../src/client/context/ThemeContext'
-import { UserProvider } from '../src/client/context/UserContext/UserContext'
+import RestrictRoutes from '../src/client/hoc/RestrictRoutes'
 import store from '../src/client/redux/store'
 import '../styles/globals.css'
 
@@ -17,11 +18,13 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <ThemeContext.Provider value={{ appTheme, setCurrentTheme }}>
-      <UserProvider>
-        <Provider store={store}>
-          <Component {...pageProps} />
-        </Provider>
-      </UserProvider>
+      <AuthProvider>
+        <RestrictRoutes>
+          <Provider store={store}>
+            <Component {...pageProps} />
+          </Provider>
+        </RestrictRoutes>
+      </AuthProvider>
     </ThemeContext.Provider>
   )
 }
