@@ -5,7 +5,7 @@ import ThemeContext, {
   DarkTheme,
   Theme,
 } from '../src/client/context/ThemeContext'
-import RestrictRoutes from '../src/client/hoc/RestrictRoutes'
+import ProtectRoutes from '../src/client/hoc/ProtectRoutes'
 import store from '../src/client/redux/store'
 import '../styles/globals.css'
 
@@ -18,13 +18,13 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <ThemeContext.Provider value={{ appTheme, setCurrentTheme }}>
-      <AuthProvider>
-        <RestrictRoutes>
-          <Provider store={store}>
+      <Provider store={store}>
+        <AuthProvider>
+          <ProtectRoutes>
             <Component {...pageProps} />
-          </Provider>
-        </RestrictRoutes>
-      </AuthProvider>
+          </ProtectRoutes>
+        </AuthProvider>
+      </Provider>
     </ThemeContext.Provider>
   )
 }

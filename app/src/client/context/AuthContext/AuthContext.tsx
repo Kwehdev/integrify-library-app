@@ -1,5 +1,13 @@
 import request, { gql } from 'graphql-request'
-import { createContext, useCallback, useEffect, useMemo, useState } from 'react'
+import { useRouter } from 'next/router'
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react'
 
 export const AuthContext = createContext(undefined)
 
@@ -7,23 +15,28 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null)
 
   const reAuthenticate = useCallback(async () => {
-    const query = gql`
-      {
-        getUserProfile {
-          userId
-          username
-          role
-          firstName
-          lastName
-          email
+    try {
+      const query = gql`
+        {
+          getUserProfile {
+            userId
+            username
+            role
+            firstName
+            lastName
+            email
+          }
         }
+      `
+      const { getUserProfile } = await request('/api/v1/graphql', query)
+      if (getUserProfile) {
+        setUser(getUserProfile)
+      } else {
+        setUser(undefined)
       }
-    `
-    const { getUserProfile } = await request('/api/v1/graphql', query)
-    if (getUserProfile) {
-      return setUser(getUserProfile)
+    } catch {
+      setUser(undefined)
     }
-    return setUser(undefined)
   }, [])
 
   useEffect(() => {
@@ -35,9 +48,9 @@ export const AuthProvider = ({ children }) => {
     () => ({
       user,
       isAuthenticated: !!user,
-      reAuthenticate,
       isAdmin: user && user.role === 'ADMIN',
-      loading: user === null,
+      isLoading: user === null,
+      reAuthenticate,
     }),
     [user, reAuthenticate]
   )
