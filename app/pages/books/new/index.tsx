@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import React, { useContext } from 'react'
+import CreateBookForm from '../../../src/client/components/CreateBookForm'
 import PageLayout from '../../../src/client/components/PageLayout'
 import ThemeContext from '../../../src/client/context/ThemeContext'
 import styles from '../../../styles/NewBook.module.css'
@@ -17,7 +18,9 @@ export default function NewBook() {
       <main
         className={styles.container}
         style={{ backgroundColor: primaryBGColor }}
-      ></main>
+      >
+        <CreateBookForm />
+      </main>
     </PageLayout>
   )
 }

@@ -6,7 +6,7 @@ import useAuth from '../../hooks/useAuth'
 
 const UnauthorizedAccessRoutes = ['/users/register', '/users/login']
 const UserAccessRoutes = []
-const AdminAccessRoutes = ['/admin']
+const AdminAccessRoutes = ['/authors/new', '/books/new']
 
 export default function ProtectRoutes({ children }) {
   const { push, pathname } = useRouter()

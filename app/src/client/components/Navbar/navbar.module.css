@@ -9,9 +9,17 @@
   display: flex;
   align-items: center;
   list-style-type: none;
+  height: 100%;
+}
+
+.greeting {
+  margin: 0;
 }
 
 .menuItem {
+  display: flex;
+  align-items: center;
+  height: 100%;
   font-size: 1em;
   margin: 0 0.5vw;
 }

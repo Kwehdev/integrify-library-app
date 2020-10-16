@@ -1,4 +1,4 @@
-import { useContext, useMemo } from 'react'
+import React, { useContext, useMemo } from 'react'
 import Link from 'next/link'
 import { RiMoonLine, RiSunFill } from 'react-icons/ri'
 
@@ -7,6 +7,7 @@ import request, { gql } from 'graphql-request'
 import { useRouter } from 'next/router'
 import ThemeContext, { DarkTheme, LightTheme } from '../../context/ThemeContext'
 import { AuthContext } from '../../context/AuthContext/AuthContext'
+import AdminDropdown from '../AdminDropdown'
 
 export default function Navbar() {
   const { user, reAuthenticate, isAuthenticated, isAdmin } = useContext(
@@ -56,9 +57,7 @@ export default function Navbar() {
             </li>
             {isAdmin && (
               <li className={styles.menuItem}>
-                <Link href='/admin'>
-                  <a className={styles.menuLink}>Admin</a>
-                </Link>
+                <AdminDropdown />
               </li>
             )}
             <li className={styles.menuItem}>
