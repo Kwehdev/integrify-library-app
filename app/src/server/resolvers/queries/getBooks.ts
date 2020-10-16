@@ -25,7 +25,7 @@ export default async function getBooks(_parent, _args, _context, _info) {
   if (limit) {
     limitOfResults = Array.isArray(limit) ? parseInt(limit[0]) : parseInt(limit)
   }
-  const queryKeys = Object.keys(query)
+  const queryKeys = Object.keys(regexedArgs)
   //Assign RegExp to each key.
   const dbQuery = Object.assign(
     {},
@@ -38,6 +38,7 @@ export default async function getBooks(_parent, _args, _context, _info) {
       [key]: new RegExp(regexedArgs[key], 'i'),
     }))
   )
+  console.log(dbQuery)
   //Note - If no params were passed, dbQuery will be an empty object, returning all books (as intended)
   return await findBooksInDB(dbQuery, limitOfResults)
 }

@@ -4,6 +4,13 @@ import { DatabaseError, DocumentNotFoundError } from '../helpers/apiError'
 import Author, { AuthorObject } from '../models/Author'
 import removeAuthorFromBooks from '../utils/removeAuthorFromBooks'
 
+export const findAuthorsInDB = async (
+  dbQuery: any = {},
+  limitOfResults: number
+) => {
+  return await Author.find(dbQuery).limit(limitOfResults).exec()
+}
+
 export const createNewAuthorInDB = async (author: AuthorObject) => {
   try {
     const authorDoc = await Author.create(author)

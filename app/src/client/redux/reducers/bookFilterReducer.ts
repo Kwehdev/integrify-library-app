@@ -12,17 +12,8 @@ export type BookFilters = {
   ISBN: string
 }
 
-const initialState = {
-  limit: 0,
-  title: '',
-  author: '',
-  status: '',
-  genre: '',
-  ISBN: '',
-}
-
 export default function bookFilterReducer(
-  state: BookFilters = initialState,
+  state: Partial<BookFilters> = {},
   action: BookFilterAction
 ) {
   switch (action.type) {

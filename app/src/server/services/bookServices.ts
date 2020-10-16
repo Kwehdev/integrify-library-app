@@ -7,7 +7,6 @@ import removeBookFromAuthors from '../utils/removeBookFromAuthors'
 export const createNewBookInDB = async (book: BookObject) => {
   try {
     const bookDoc = await Book.create(book)
-
     await addBookToAuthors(bookDoc._id, bookDoc.authors)
 
     return bookDoc

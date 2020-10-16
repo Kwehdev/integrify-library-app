@@ -53,6 +53,10 @@
   color: inherit;
 }
 
+.textarea {
+  resize: vertical;
+}
+
 .btnContainer {
   display: flex;
 }

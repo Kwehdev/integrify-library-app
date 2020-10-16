@@ -22,6 +22,7 @@ export default function BookDisplay() {
 
       try {
         const response = await request('/api/v1/graphql', query, variables)
+        console.log(response)
         setData(response.getBooks)
       } catch (e) {
         setError(e.message)

@@ -18,6 +18,8 @@ import updateUserPassword from './mutations/updateUserPassword'
 import updateUserProfile from './mutations/updateUserProfile'
 
 //Author
+import getAuthors from './queries/getAuthors'
+
 import createAuthor from './mutations/createAuthor'
 import deleteAuthor from './mutations/deleteAuthor'
 import updateAuthor from './mutations/updateAuthor'
@@ -26,6 +28,7 @@ const resolvers = {
   Query: {
     getUserProfile,
     getBooks,
+    getAuthors,
   },
 
   Mutation: {

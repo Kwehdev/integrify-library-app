@@ -32,7 +32,12 @@ export default function FilterMenu() {
       | React.ChangeEvent<HTMLSelectElement>
   ) => {
     const { name, value } = ev.target
-    setFilterOptions((prev) => ({ ...prev, [name]: value }))
+    if (name === 'limit') {
+      const newValue = parseInt(value)
+      setFilterOptions((prev) => ({ ...prev, [name]: newValue }))
+    } else {
+      setFilterOptions((prev) => ({ ...prev, [name]: value }))
+    }
     console.log(filterOptions)
   }
 

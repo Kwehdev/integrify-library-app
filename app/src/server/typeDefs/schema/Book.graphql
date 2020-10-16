@@ -18,16 +18,12 @@ type Book {
   description: String!
   status: BookStatus!
   authors: [Author!]!
-  publisher: Publishers
+  publisher: String!
   publishedDate: String!
   genre: [Genre!]!
   borrowerId: ID
   borrowDate: String
   dueDate: String
-}
-
-enum Publishers {
-  Harper_Collins
 }
 
 enum Genre {
@@ -46,7 +42,7 @@ input BookCreateInput {
   description: String!
   status: BookStatus!
   authors: [ID!]!
-  publisher: Publishers
+  publisher: String!
   publishedDate: String!
   genre: [Genre!]
 }
@@ -68,7 +64,7 @@ input BookUpdateInput {
   description: String
   status: BookStatus
   authors: [ID!]
-  publisher: Publishers
+  publisher: String!
   publishedDate: String
   genre: [Genre!]
 }
