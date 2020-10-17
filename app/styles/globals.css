@@ -13,3 +13,11 @@ a {
   box-sizing: border-box;
   font-family: 'Roboto', sans-serif;
 }
+
+.LIGHT {
+  --nav-bg-color: #383d46;
+  --nav-text-color: white;
+}
+
+.DARK {
+}
