@@ -1,4 +1,4 @@
-import { Types } from 'mongoose'
+import mongoose, { Types } from 'mongoose'
 import { DatabaseError, DocumentNotFoundError } from '../helpers/apiError'
 import Book, { BookObject } from '../models/Book'
 import addBookToAuthors from '../utils/addBookToAuthors'
@@ -17,9 +17,9 @@ export const createNewBookInDB = async (book: BookObject) => {
 
 export const findBooksInDB = async (
   dbQuery: any = {},
-  limitOfResults: number
+  limitOfResults: number = 0
 ) => {
-  return await Book.find(dbQuery).limit(limitOfResults).exec()
+  return await Book.find(dbQuery).limit(5).populate('authors').exec()
 }
 
 export const findBookById = async (bookId: Types.ObjectId) => {

@@ -9,6 +9,7 @@
     "test": "jest --runInBand"
   },
   "dependencies": {
+    "@apollo/client": "^3.2.4",
     "@graphql-tools/load-files": "^6.2.4",
     "@graphql-tools/merge": "^6.2.4",
     "@sendgrid/mail": "^7.2.6",
