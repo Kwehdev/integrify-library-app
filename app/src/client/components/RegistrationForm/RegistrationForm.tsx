@@ -1,5 +1,7 @@
+import request, { gql } from 'graphql-request'
 import { useMemo, useState } from 'react'
 import { validateFormInput } from '../../helpers/validateFormInput'
+import useAuth from '../../hooks/useAuth'
 import Form from '../Form'
 import FormFieldSet from '../FormFieldSet'
 import FormInput from '../FormInput'
@@ -50,10 +52,11 @@ const inputObjects = [
 export default function RegistrationForm() {
   const [loading, setLoading] = useState(false)
   const [formValues, setFormValues] = useState(initialState)
-
   const [formStatus, setFormStatus] = useState(
     'Please enter the following information.'
   )
+
+  const { reAuthenticate } = useAuth()
 
   const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = ev.target
@@ -67,8 +70,29 @@ export default function RegistrationForm() {
     ev.target.setCustomValidity(error)
   }
 
-  const handleSubmit = (ev: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (ev: React.FormEvent<HTMLFormElement>) => {
     ev.preventDefault()
+    setLoading(true)
+
+    const query = gql`
+      mutation RegisterUser($user: UserRegisterInput) {
+        registerUser(user: $user)
+      }
+    `
+
+    const variables = {
+      user: formValues,
+    }
+
+    try {
+      await request('/api/v1/graphql', query, variables)
+      await reAuthenticate()
+      setFormStatus('Registered Successfully. You will be redirected shortly.')
+    } catch (e) {
+      console.log(e)
+      setFormStatus(e.response.errors[0].message)
+      setLoading(false)
+    }
   }
 
   const FormInputs = useMemo(
