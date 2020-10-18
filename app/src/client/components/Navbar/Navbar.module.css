@@ -17,15 +17,11 @@
 }
 
 .navLink {
-  opacity: 0.7;
-}
-
-.navLink:focus {
-  opacity: 0.8;
+  opacity: 1;
 }
 
 .navLink:hover {
-  opacity: 0.9;
+  opacity: 0.7;
 }
 
 .userMenu {
