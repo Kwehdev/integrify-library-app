@@ -6,7 +6,7 @@ export const DARK = 'DARK'
 export const ThemeContext = createContext(null)
 
 export function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState(LIGHT)
+  const [theme, setTheme] = useState(DARK)
 
   useEffect(() => {
     changeBodyClass(theme)

@@ -15,9 +15,11 @@ a {
 }
 
 .LIGHT {
-  --nav-bg-color: #383d46;
-  --nav-text-color: white;
 }
 
 .DARK {
+  --nav-bg-color: #383d46;
+  --nav-text-color: white;
+  --main-bg-color: #282c34;
+  --main-text-color: #eef2fa;
 }
