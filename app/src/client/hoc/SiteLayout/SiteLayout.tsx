@@ -16,7 +16,7 @@ export default function SiteLayout({ children }) {
         />
       </Head>
       <Header />
-      <main className={styles.main}>{children}</main>
+      {children}
     </div>
   )
 }

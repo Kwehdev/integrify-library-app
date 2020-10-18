@@ -7,9 +7,11 @@ export default function HomePage() {
       <Head>
         <title>LibraryApp - Home</title>
       </Head>
-      <div>
-        <h1>Homepage</h1>
-      </div>
+      <main>
+        <div>
+          <h1>Homepage</h1>
+        </div>
+      </main>
     </>
   )
 }
