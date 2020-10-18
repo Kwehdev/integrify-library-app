@@ -1,0 +1,6 @@
+.container {
+  background: url('/mainBg.jpg') no-repeat center/cover;
+  height: 92vh;
+  display: flex;
+  align-items: center;
+}

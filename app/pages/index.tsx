@@ -1,5 +1,8 @@
 import Head from 'next/head'
 import React from 'react'
+import Jumbotron from '../src/client/components/Jumbotron'
+
+import styles from '../styles/HomePage.module.css'
 
 export default function HomePage() {
   return (
@@ -8,8 +11,8 @@ export default function HomePage() {
         <title>LibraryApp - Home</title>
       </Head>
       <main>
-        <div>
-          <h1>Homepage</h1>
+        <div className={styles.container}>
+          <Jumbotron />
         </div>
       </main>
     </>
