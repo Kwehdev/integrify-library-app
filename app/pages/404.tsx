@@ -1,5 +1,7 @@
 import Head from 'next/head'
 import React from 'react'
+import CenteredLayout from '../src/client/hoc/CenteredLayout'
+import SiteLayout from '../src/client/hoc/SiteLayout'
 
 import styles from '../styles/404.module.css'
 
@@ -18,3 +20,9 @@ export default function NotFoundPage() {
     </>
   )
 }
+
+NotFoundPage.withCustomLayout = (page) => (
+  <SiteLayout>
+    <CenteredLayout>{page}</CenteredLayout>
+  </SiteLayout>
+)
