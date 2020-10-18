@@ -8,6 +8,7 @@ import '../styles/globals.css'
 
 function MyApp({ Component, pageProps }) {
   const { withCustomLayout } = Component
+
   return (
     <ThemeProvider>
       {withCustomLayout ? (

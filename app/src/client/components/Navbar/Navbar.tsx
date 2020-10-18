@@ -9,9 +9,7 @@ export default function Navbar() {
       <ul className={styles.navMenu}>
         <li className={styles.navItem}>
           <Link href='/'>
-            <a className={`${styles.navLink} ${styles.navLink__active}`}>
-              Home
-            </a>
+            <a className={styles.navLink}>Home</a>
           </Link>
         </li>
         <li className={styles.navItem}>

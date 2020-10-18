@@ -1,0 +1,17 @@
+.formSubmitBtn {
+  margin: 2% 0 0 auto;
+  padding: 0.7em 2em;
+  color: inherit;
+  background-color: inherit;
+  border: 2px solid var(--main-text-color);
+  border-radius: 20px;
+}
+
+.formSubmitBtn:hover {
+  opacity: 0.8;
+}
+
+.formSubmitBtn:active {
+  opacity: 0.6;
+  outline: none;
+}

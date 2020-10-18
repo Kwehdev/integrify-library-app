@@ -1,0 +1,41 @@
+.formInput {
+  width: 100%;
+  padding: 1em;
+  border: 2px solid var(--main-text-color);
+  background-color: inherit;
+  color: inherit;
+  opacity: 0.9;
+  margin: 1% 0;
+}
+
+.formInput::placeholder {
+  color: var(--main-text-color);
+}
+
+.formInput:valid {
+  border: 2px solid green;
+}
+
+.formInput:focus:invalid {
+  border: 2px solid red;
+}
+
+.formInput:focus {
+  outline: none;
+}
+
+.formInput::placeholder {
+  color: inherit;
+}
+
+.formInput[name='firstName'],
+.formInput[name='lastName'],
+.formInput[name='password'],
+.formInput[name='confirmPassword'] {
+  width: 48%;
+}
+
+.formInput[name='lastName'],
+.formInput[name='confirmPassword'] {
+  margin-left: auto;
+}

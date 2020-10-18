@@ -1,0 +1,25 @@
+.fieldset {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 3%;
+  border-color: var(--main-text-color);
+  border-radius: 20px;
+  opacity: 0.9;
+}
+
+.legend {
+  font-size: 1.5rem;
+}
+
+.status {
+  text-align: center;
+  font-size: 1.2rem;
+  padding: 0 0 2%;
+}
+
+.formContent {
+  display: flex;
+  flex-wrap: wrap;
+  width: 90%;
+}
