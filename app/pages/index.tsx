@@ -1,5 +1,15 @@
-import DefaultLayout from '../src/client/hoc/SiteLayout'
+import Head from 'next/head'
+import React from 'react'
 
 export default function HomePage() {
-  return <div>Homepage</div>
+  return (
+    <>
+      <Head>
+        <title>LibraryApp - Home</title>
+      </Head>
+      <div>
+        <h1>Homepage</h1>
+      </div>
+    </>
+  )
 }
