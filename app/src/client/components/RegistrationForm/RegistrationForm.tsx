@@ -113,6 +113,7 @@ export default function RegistrationForm() {
         legendText='Registration Form'
         statusText={formStatus}
         disabled={disabled}
+        withBorder={true}
       >
         {FormInputs}
         <FormSubmitBtn />

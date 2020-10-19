@@ -7,10 +7,15 @@ export default function FormInput({
   onChange,
   value,
   required,
+  ...rest
 }) {
   return (
     <input
-      className={styles.formInput}
+      className={
+        required
+          ? `${styles.formInput} ${styles.formInput__validate}`
+          : styles.formInput
+      }
       type={type}
       name={name}
       placeholder={placeholder}
@@ -18,6 +23,7 @@ export default function FormInput({
       value={value}
       aria-label={`Input for ${name}`}
       required={required}
+      {...rest}
     />
   )
 }

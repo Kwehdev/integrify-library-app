@@ -1,6 +1,8 @@
 import useAPIData from '../../hooks/useAPIData'
-import BookCardDisplay from '../BookCardDisplay'
 import AppStatus from '../AppStatus'
+import FilterMenu from '../FilterMenu'
+
+import styles from './LibraryDisplay.module.css'
 
 export default function LibraryDisplay() {
   const { data, error, loading } = useAPIData()
@@ -30,8 +32,8 @@ export default function LibraryDisplay() {
   }
 
   return (
-    <div>
-      <BookCardDisplay />
+    <div className={styles.container}>
+      <FilterMenu />
     </div>
   )
 }

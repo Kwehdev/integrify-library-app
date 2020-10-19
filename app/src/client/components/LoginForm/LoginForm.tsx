@@ -84,6 +84,7 @@ export default function LoginForm() {
         legendText='Login Form'
         statusText={formStatus}
         disabled={disabled}
+        withBorder={true}
       >
         {FormInputs}
         <FormSubmitBtn />

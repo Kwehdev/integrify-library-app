@@ -6,28 +6,65 @@ export const APIDataContext = createContext(undefined)
 export const APIDataProvider = ({ children }) => {
   const [data, setData] = useState(null)
   const [error, setError] = useState(null)
+  const [filterQuery, setFilterQuery] = useState({})
 
-  const refreshData = useCallback(async () => {
+  const refreshData = async () => {
     try {
       const query = gql`
-        {
-          getBooks {
+        query GetBooks($query: BookQueryInput) {
+          getBooks(query: $query) {
+            _id
+            ISBN
+            imageURI
             title
+            description
+            status
+            authors {
+              name
+            }
+            publisher
+            publishedDate
+            genre
+            borrowDate
+            dueDate
           }
         }
       `
 
-      const { getBooks } = await request('/api/v1/graphql', query)
+      const variables = {
+        query: filterQuery,
+      }
+
+      const { getBooks } = await request('/api/v1/graphql', query, variables)
       setData(getBooks)
     } catch (e) {
+      console.log(e)
       setError(e)
     }
-  }, [])
+  }
+
+  const updateFilters = async (filters) => {
+    const { title, author, ISBN, limit, status } = filters
+
+    const newFilters = {
+      ...(title && { title }),
+      ...(author && { author }),
+      ...(ISBN && { ISBN }),
+      ...(limit && { limit }),
+      ...(status && { status }),
+    }
+
+    setFilterQuery(newFilters)
+  }
 
   useEffect(() => {
     if (data) return
     refreshData()
   }, [refreshData, data])
+
+  useEffect(() => {
+    refreshData()
+  }, [filterQuery])
 
   const value = useMemo(
     () => ({
@@ -35,8 +72,9 @@ export const APIDataProvider = ({ children }) => {
       error,
       refreshData,
       loading: data === null && error === null,
+      updateFilters,
     }),
-    [data, error, refreshData]
+    [data, error, refreshData, updateFilters]
   )
   return (
     <APIDataContext.Provider value={value}>{children}</APIDataContext.Provider>

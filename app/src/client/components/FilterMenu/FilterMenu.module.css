@@ -1,0 +1,8 @@
+.container {
+  padding: 1%;
+  display: flex;
+  flex-direction: column;
+  width: 20vw;
+  height: 100%;
+  border-right: 5px solid var(--nav-text-color);
+}
