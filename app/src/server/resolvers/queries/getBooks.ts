@@ -38,7 +38,7 @@ export default async function getBooks(_parent, _args, _context, _info) {
     {},
     {
       ...(_id && { _id }),
-      ...(authorId && { authorId }),
+      ...(authorId && { authors: authorId }),
       ...(genre && { genre: genre }),
     },
     ...queryKeys.map((key) => ({

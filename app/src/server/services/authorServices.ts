@@ -29,7 +29,7 @@ export const findAuthorById = async (authorId: Types.ObjectId) => {
 }
 
 export const findAuthorByName = async (authorName: string) => {
-  const authorNameRegex = new RegExp(`^${authorName}$`, 'i')
+  const authorNameRegex = new RegExp(`${authorName}`, 'i')
   try {
     return await Author.findOne({ name: authorNameRegex }).exec()
   } catch (err) {

@@ -1,6 +1,6 @@
 import styles from './BookCard.module.css'
 
-export default function BookCard({ title, description, imageURI, status }) {
+export default function BookCard({ title, imageURI }) {
   return (
     <div className={styles.container}>
       <div className={styles.imageWrapper}>
