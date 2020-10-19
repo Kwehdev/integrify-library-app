@@ -1,4 +1,5 @@
 import request, { gql } from 'graphql-request'
+import { useRouter } from 'next/router'
 import { useMemo, useState } from 'react'
 import { validateFormInput } from '../../helpers/validateFormInput'
 import useAuth from '../../hooks/useAuth'
@@ -56,14 +57,15 @@ export default function RegistrationForm() {
     'Please enter the following information.'
   )
 
-  const { reAuthenticate } = useAuth()
+  const { reAuthenticate, register } = useAuth()
+  const router = useRouter()
 
   const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = ev.target
     setFormValues((prev) => ({ ...prev, [name]: value }))
     let error = ''
     if (name === 'confirmPassword') {
-      error = validateFormInput(name, value, formValues.confirmPassword)
+      error = validateFormInput(name, value, formValues.password)
     } else {
       error = validateFormInput(name, value)
     }
@@ -74,20 +76,12 @@ export default function RegistrationForm() {
     ev.preventDefault()
     setLoading(true)
 
-    const query = gql`
-      mutation RegisterUser($user: UserRegisterInput) {
-        registerUser(user: $user)
-      }
-    `
-
-    const variables = {
-      user: formValues,
-    }
-
     try {
-      await request('/api/v1/graphql', query, variables)
-      await reAuthenticate()
+      await register(formValues)
+      //Will throw if unsuccessful.
       setFormStatus('Registered Successfully. You will be redirected shortly.')
+      await router.push('/')
+      await reAuthenticate()
     } catch (e) {
       console.log(e)
       setFormStatus(e.response.errors[0].message)
@@ -114,14 +108,14 @@ export default function RegistrationForm() {
   let disabled = loading
 
   return (
-    <Form>
+    <Form handleSubmit={handleSubmit}>
       <FormFieldSet
         legendText='Registration Form'
         statusText={formStatus}
         disabled={disabled}
       >
         {FormInputs}
-        <FormSubmitBtn onSubmit={handleSubmit} />
+        <FormSubmitBtn />
       </FormFieldSet>
     </Form>
   )

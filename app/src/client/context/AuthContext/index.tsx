@@ -31,6 +31,31 @@ export const AuthProvider = ({ children }) => {
     }
   }, [])
 
+  const register = useCallback(async (user) => {
+    const query = gql`
+      mutation RegisterUser($user: UserRegisterInput) {
+        registerUser(user: $user)
+      }
+    `
+
+    const variables = {
+      user,
+    }
+
+    await request('/api/v1/graphql', query, variables)
+  }, [])
+
+  const logout = useCallback(async () => {
+    const query = gql`
+      mutation LogoutUser {
+        logoutUser
+      }
+    `
+
+    await request('/api/v1/graphql', query)
+    setUser(undefined)
+  }, [])
+
   useEffect(() => {
     if (user) return
     reAuthenticate()
@@ -43,8 +68,10 @@ export const AuthProvider = ({ children }) => {
       isAdmin: user && user.role === 'ADMIN',
       isLoading: user === null,
       reAuthenticate,
+      logout,
+      register,
     }),
-    [user, reAuthenticate]
+    [user, reAuthenticate, logout, register]
   )
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

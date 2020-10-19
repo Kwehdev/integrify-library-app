@@ -3,9 +3,14 @@ import Link from 'next/link'
 
 import styles from './Navbar.module.css'
 import useAuth from '../../hooks/useAuth'
+import { useRouter } from 'next/router'
 
 export default function Navbar() {
-  const { user, isAuthenticated } = useAuth()
+  const { user, isAuthenticated, logout } = useAuth()
+
+  const handleLogout = async () => {
+    await logout()
+  }
 
   //Todo Refactor
   const UserMenu = useMemo(() => {
@@ -33,6 +38,11 @@ export default function Navbar() {
             <p className={styles.greeting}>
               Hello, <strong>{user.username}</strong>
             </p>
+          </li>
+          <li className={styles.navItem}>
+            <button className={styles.logoutBtn} onClick={handleLogout}>
+              Log out
+            </button>
           </li>
         </ul>
       )

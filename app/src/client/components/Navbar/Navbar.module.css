@@ -29,4 +29,17 @@
   list-style-type: none;
   padding: 0 2vw;
   margin-left: auto;
+  align-items: center;
+}
+
+.logoutBtn {
+  border: none;
+  cursor: pointer;
+  background-color: inherit;
+  color: inherit;
+  font-size: inherit;
+}
+
+.logoutBtn:hover {
+  opacity: 0.7;
 }
