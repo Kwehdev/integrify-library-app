@@ -1,5 +1,6 @@
 import React from 'react'
 import { Provider } from 'react-redux'
+import { APIDataProvider } from '../src/client/context/APIDataContext'
 import { AuthProvider } from '../src/client/context/AuthContext'
 
 import { ThemeProvider } from '../src/client/context/ThemeContext'
@@ -14,15 +15,17 @@ function MyApp({ Component, pageProps }) {
   return (
     <ThemeProvider>
       <AuthProvider>
-        <ProtectRoutes>
-          {withCustomLayout ? (
-            withCustomLayout(<Component {...pageProps} />)
-          ) : (
-            <SiteLayout>
-              <Component {...pageProps} />
-            </SiteLayout>
-          )}
-        </ProtectRoutes>
+        <APIDataProvider>
+          <ProtectRoutes>
+            {withCustomLayout ? (
+              withCustomLayout(<Component {...pageProps} />)
+            ) : (
+              <SiteLayout>
+                <Component {...pageProps} />
+              </SiteLayout>
+            )}
+          </ProtectRoutes>
+        </APIDataProvider>
       </AuthProvider>
     </ThemeProvider>
   )
