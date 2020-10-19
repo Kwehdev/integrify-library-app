@@ -29,13 +29,10 @@
 }
 
 .formInput[name='firstName'],
-.formInput[name='lastName'],
-.formInput[name='password'],
-.formInput[name='confirmPassword'] {
+.formInput[name='lastName'] {
   width: 48%;
 }
 
-.formInput[name='lastName'],
-.formInput[name='confirmPassword'] {
+.formInput[name='lastName'] {
   margin-left: auto;
 }

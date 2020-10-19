@@ -31,6 +31,20 @@ export const AuthProvider = ({ children }) => {
     }
   }, [])
 
+  const login = useCallback(async (user) => {
+    const query = gql`
+      mutation LoginUser($user: UserLoginInput) {
+        loginUser(user: $user)
+      }
+    `
+
+    const variables = {
+      user,
+    }
+
+    await request('/api/v1/graphql', query, variables)
+  }, [])
+
   const register = useCallback(async (user) => {
     const query = gql`
       mutation RegisterUser($user: UserRegisterInput) {
@@ -68,6 +82,7 @@ export const AuthProvider = ({ children }) => {
       isAdmin: user && user.role === 'ADMIN',
       isLoading: user === null,
       reAuthenticate,
+      login,
       logout,
       register,
     }),
