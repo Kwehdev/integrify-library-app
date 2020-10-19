@@ -10,12 +10,14 @@ export default async function getBooks(_parent, _args, _context, _info) {
   }
 
   const { _id, limit, title, author, status, genre, ISBN } = query
-
   let authorId
   if (author) {
     const authorDoc = await findAuthorByName(author)
     if (authorDoc) {
       authorId = authorDoc._id
+    } else {
+      //If user filtered by author, but no author was found, we return empty array.
+      return []
     }
   }
 
@@ -43,7 +45,6 @@ export default async function getBooks(_parent, _args, _context, _info) {
       [key]: new RegExp(regexedArgs[key], 'i'),
     }))
   )
-  console.log(dbQuery)
   //Note - If no params were passed, dbQuery will be an empty object, returning all books (as intended)
   return await findBooksInDB(dbQuery, limitOfResults)
 }

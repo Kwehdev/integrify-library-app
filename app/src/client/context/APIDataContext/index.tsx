@@ -54,6 +54,7 @@ export const APIDataProvider = ({ children }) => {
       ...(status && { status }),
     }
 
+    console.log(newFilters)
     setFilterQuery(newFilters)
   }
 

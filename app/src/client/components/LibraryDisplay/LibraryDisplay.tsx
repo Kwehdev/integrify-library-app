@@ -1,5 +1,6 @@
 import useAPIData from '../../hooks/useAPIData'
 import AppStatus from '../AppStatus'
+import BookCardDisplay from '../BookCardDisplay'
 import FilterMenu from '../FilterMenu'
 
 import styles from './LibraryDisplay.module.css'
@@ -22,18 +23,10 @@ export default function LibraryDisplay() {
     )
   }
 
-  if (data.length === 0) {
-    return (
-      <AppStatus
-        type={'Error'}
-        message={'No Books were found in the database'}
-      />
-    )
-  }
-
   return (
     <div className={styles.container}>
       <FilterMenu />
+      <BookCardDisplay books={data} />
     </div>
   )
 }

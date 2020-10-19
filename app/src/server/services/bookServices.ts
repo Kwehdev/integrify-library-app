@@ -19,7 +19,10 @@ export const findBooksInDB = async (
   dbQuery: any = {},
   limitOfResults: number = 0
 ) => {
-  return await Book.find(dbQuery).limit(5).populate('authors').exec()
+  return await Book.find(dbQuery)
+    .limit(limitOfResults)
+    .populate('authors')
+    .exec()
 }
 
 export const findBookById = async (bookId: Types.ObjectId) => {

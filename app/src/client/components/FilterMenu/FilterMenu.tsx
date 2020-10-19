@@ -65,7 +65,7 @@ export default function FilterMenu() {
 
           <FormInput
             type={'text'}
-            name={'authors'}
+            name={'author'}
             placeholder={'Author...'}
             onChange={handleInputChange}
             value={filterValues[name]}

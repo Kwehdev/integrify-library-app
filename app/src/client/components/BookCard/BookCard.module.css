@@ -1,0 +1,13 @@
+.container {
+  padding: 5%;
+}
+
+.imageWrapper {
+  height: 80%;
+}
+
+.image {
+  height: 100%;
+  width: auto;
+  border-radius: 2px;
+}
