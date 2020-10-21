@@ -1,5 +1,14 @@
 import styles from './FormInput.module.css'
 
+type FormInputProps = {
+  type: string
+  name: string
+  placeholder?: string
+  onChange: (ev: React.ChangeEvent<HTMLInputElement>) => void
+  value: string
+  required: boolean
+}
+
 export default function FormInput({
   type,
   name,
@@ -8,7 +17,7 @@ export default function FormInput({
   value,
   required,
   ...rest
-}) {
+}: FormInputProps) {
   return (
     <input
       className={
