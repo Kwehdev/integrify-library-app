@@ -4,9 +4,10 @@ import Link from 'next/link'
 import styles from './Navbar.module.css'
 import useAuth from '../../hooks/useAuth'
 import { useRouter } from 'next/router'
+import AdminMenu from '../AdminMenu'
 
 export default function Navbar() {
-  const { user, isAuthenticated, logout } = useAuth()
+  const { user, isAuthenticated, isAdmin, logout } = useAuth()
 
   const handleLogout = async () => {
     await logout()
@@ -39,6 +40,11 @@ export default function Navbar() {
               Hello, <strong>{user.username}</strong>
             </p>
           </li>
+          {isAdmin && (
+            <li className={styles.navItem}>
+              <AdminMenu />
+            </li>
+          )}
           <li className={styles.navItem}>
             <button className={styles.logoutBtn} onClick={handleLogout}>
               Log out

@@ -13,7 +13,10 @@
 }
 
 .navItem {
+  display: flex;
+  align-items: center;
   padding: 0 0.7vw;
+  height: 100%;
 }
 
 .navLink {
@@ -25,6 +28,8 @@
 }
 
 .userMenu {
+  margin: 0;
+  height: 100%;
   display: flex;
   list-style-type: none;
   padding: 0 2vw;
