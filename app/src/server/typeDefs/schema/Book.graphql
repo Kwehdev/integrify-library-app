@@ -63,8 +63,8 @@ input BookUpdateInput {
   title: String
   description: String
   status: BookStatus
-  authors: [ID!]
-  publisher: String!
+  authors: [ID]
+  publisher: String
   publishedDate: String
-  genre: [Genre!]
+  genre: [Genre]
 }

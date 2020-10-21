@@ -5,7 +5,7 @@ type FormTextAreaProps = {
   placeholder?: string
   onChange: (ev: React.ChangeEvent<HTMLTextAreaElement>) => void
   value: string
-  required: boolean
+  required?: boolean
 }
 
 export default function FormTextArea({

@@ -26,6 +26,11 @@ export default function AdminMenu() {
             <a className={styles.navLink}>New Book</a>
           </Link>
         </li>
+        <li className={styles.menuItem}>
+          <Link href='/books/update'>
+            <a className={styles.navLink}>Update Book</a>
+          </Link>
+        </li>
       </ul>
     </div>
   )

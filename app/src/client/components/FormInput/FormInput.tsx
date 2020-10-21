@@ -6,7 +6,7 @@ type FormInputProps = {
   placeholder?: string
   onChange: (ev: React.ChangeEvent<HTMLInputElement>) => void
   value: string
-  required: boolean
+  required?: boolean
 }
 
 export default function FormInput({
