@@ -8,6 +8,8 @@ const AdminAccessRoutes = [
   '/authors/update',
   '/authors/delete',
   '/books/new',
+  '/books/update',
+  '/books/delete',
 ]
 
 export default function ProtectRoutes({ children }) {
