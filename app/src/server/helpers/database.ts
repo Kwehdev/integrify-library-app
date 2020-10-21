@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 const options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  useFindAndModify: true,
 }
 
 export const connectToDatabase = async () => {

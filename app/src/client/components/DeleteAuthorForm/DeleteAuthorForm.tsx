@@ -2,18 +2,12 @@ import request, { gql } from 'graphql-request'
 import React, { useMemo, useState } from 'react'
 import Form from '../Form'
 import FormFieldSet from '../FormFieldSet'
-import FormInput from '../FormInput'
 import FormSelect from '../FormSelect'
 import FormSubmitBtn from '../FormSubmitBtn'
 
-const initialState = {
-  name: '',
-}
-
-export default function AuthorUpdateForm({ authors }) {
+export default function AuthorDeleteForm({ authors }) {
   const [loading, setLoading] = useState(false)
-  const [formValues, setFormValues] = useState(initialState)
-  const [formStatus, setFormStatus] = useState('Select an author and update.')
+  const [formStatus, setFormStatus] = useState('Select an author to delete.')
   const [selectedAuthorId, setSelectedAuthorId] = useState(null)
 
   const optionData = useMemo(
@@ -29,18 +23,13 @@ export default function AuthorUpdateForm({ authors }) {
     setSelectedAuthorId(value)
   }
 
-  const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = ev.target
-    setFormValues((prev) => ({ ...prev, [name]: value }))
-  }
-
   const handleSubmit = async (ev: React.FormEvent<HTMLFormElement>) => {
     ev.preventDefault()
     setLoading(true)
 
     const query = gql`
-      mutation UpdateAuthor($authorId: ID, $author: AuthorUpdateInput) {
-        updateAuthor(authorId: $authorId, author: $author) {
+      mutation DeleteAuthor($authorId: ID) {
+        deleteAuthor(authorId: $authorId) {
           _id
           name
         }
@@ -49,17 +38,16 @@ export default function AuthorUpdateForm({ authors }) {
 
     const variables = {
       authorId: selectedAuthorId,
-      author: formValues,
     }
 
     try {
-      const { updateAuthor } = await request(
+      const { deleteAuthor } = await request(
         '/api/v1/graphql',
         query,
         variables
       )
-      const { _id, name } = updateAuthor
-      setFormStatus(`Author ${name}, ID: ${_id} has been updated.`)
+      const { _id, name } = deleteAuthor
+      setFormStatus(`Author ${name}, ID: ${_id} has been deleted`)
     } catch (e) {
       setFormStatus(e.response.errors[0].message)
     }
@@ -70,7 +58,7 @@ export default function AuthorUpdateForm({ authors }) {
   return (
     <Form handleSubmit={handleSubmit}>
       <FormFieldSet
-        legendText='Update an Author'
+        legendText='Delete an Author'
         statusText={formStatus}
         disabled={disabled}
         withBorder={true}
@@ -79,15 +67,6 @@ export default function AuthorUpdateForm({ authors }) {
           defaultOptionText={'Select an author'}
           changeHandler={handleSelectChange}
           optionData={optionData}
-        />
-        <FormInput
-          key={`Input name`}
-          type='text'
-          name='name'
-          placeholder='Updated name...'
-          onChange={handleChange}
-          value={formValues[name]}
-          required
         />
         <FormSubmitBtn />
       </FormFieldSet>

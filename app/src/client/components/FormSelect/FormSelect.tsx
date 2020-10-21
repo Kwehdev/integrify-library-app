@@ -1,7 +1,11 @@
 import { useMemo } from 'react'
 import styles from './FormSelect.module.css'
 
-export default function FormSelect({ changeHandler, optionData }) {
+export default function FormSelect({
+  defaultOptionText,
+  changeHandler,
+  optionData,
+}) {
   const Options = useMemo(
     () =>
       optionData.map(({ value, toDisplay }) => (
@@ -19,7 +23,7 @@ export default function FormSelect({ changeHandler, optionData }) {
       onChange={changeHandler}
     >
       <option disabled value='Select'>
-        Select an option
+        {defaultOptionText}
       </option>
       {Options}
     </select>

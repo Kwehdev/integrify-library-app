@@ -13,7 +13,12 @@ export default function AdminMenu() {
         </li>
         <li className={styles.menuItem}>
           <Link href='/authors/update'>
-            <a className={styles.navLink}>Update Author</a>
+            <a className={styles.navLink}>Update an Author</a>
+          </Link>
+        </li>
+        <li className={styles.menuItem}>
+          <Link href='/authors/delete'>
+            <a className={styles.navLink}>Delete an Author</a>
           </Link>
         </li>
         <li className={styles.menuItem}>

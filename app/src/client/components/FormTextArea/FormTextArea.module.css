@@ -1,0 +1,15 @@
+.textArea {
+  width: 100%;
+  padding: 1em;
+  border: 2px solid var(--main-text-color);
+  background-color: inherit;
+  color: inherit;
+  opacity: 0.9;
+  margin: 1.5% 0;
+  font: 0.9em 'Roboto';
+  resize: vertical;
+}
+
+.textArea::placeholder {
+  color: var(--main-text-color);
+}
