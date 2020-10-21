@@ -85,8 +85,8 @@ export default function RegistrationForm() {
     } catch (e) {
       console.log(e)
       setFormStatus(e.response.errors[0].message)
-      setLoading(false)
     }
+    setLoading(false)
   }
 
   const FormInputs = useMemo(
