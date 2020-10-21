@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build --debug",
     "start": "next start",
     "test": "jest --runInBand"
   },
@@ -21,7 +21,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.6.2",
     "mongoose": "^5.10.8",
-    "next": "9.5.3",
+    "next": "^9.5.5",
     "nodemailer": "^6.4.13",
     "react": "16.13.1",
     "react-dom": "16.13.1",

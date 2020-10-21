@@ -5,9 +5,10 @@ import BookCard from '../BookCard/BookCard'
 import styles from './BookCardDisplay.module.css'
 
 export default function BookCardDisplay({ books }) {
-  const BookCards = useMemo(() => books.map((book) => <BookCard {...book} />), [
-    books,
-  ])
+  const BookCards = useMemo(
+    () => books.map((book) => <BookCard key={book._id} {...book} />),
+    [books]
+  )
 
   if (books.length === 0) {
     return (

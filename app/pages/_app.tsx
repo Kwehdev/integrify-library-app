@@ -1,5 +1,4 @@
 import React from 'react'
-import { Provider } from 'react-redux'
 import { APIDataProvider } from '../src/client/context/APIDataContext'
 import { AuthProvider } from '../src/client/context/AuthContext'
 

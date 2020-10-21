@@ -1,0 +1,7 @@
+.status__available {
+  color: green;
+}
+
+.status__unavailable {
+  color: red;
+}

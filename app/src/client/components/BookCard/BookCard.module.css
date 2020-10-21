@@ -1,5 +1,10 @@
 .container {
   padding: 5%;
+  cursor: pointer;
+}
+
+.container:hover {
+  opacity: 0.7;
 }
 
 .imageWrapper {
