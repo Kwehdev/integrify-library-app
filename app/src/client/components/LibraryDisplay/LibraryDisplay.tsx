@@ -1,4 +1,4 @@
-import useAPIData from '../../hooks/useAPIData'
+import useBooks from '../../hooks/useBooks'
 import AppStatus from '../AppStatus'
 import BookCardDisplay from '../BookCardDisplay'
 import FilterMenu from '../FilterMenu'
@@ -6,7 +6,7 @@ import FilterMenu from '../FilterMenu'
 import styles from './LibraryDisplay.module.css'
 
 export default function LibraryDisplay() {
-  const { data, error, loading } = useAPIData()
+  const { data, error, loading } = useBooks()
 
   if (loading) {
     return (

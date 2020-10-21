@@ -1,9 +1,9 @@
 import request, { gql } from 'graphql-request'
 import { createContext, useCallback, useEffect, useMemo, useState } from 'react'
 
-export const APIDataContext = createContext(undefined)
+export const BookContext = createContext(undefined)
 
-export const APIDataProvider = ({ children }) => {
+export const BookProvider = ({ children }) => {
   const [data, setData] = useState(null)
   const [error, setError] = useState(null)
   const [filterQuery, setFilterQuery] = useState({})
@@ -58,6 +58,22 @@ export const APIDataProvider = ({ children }) => {
     setFilterQuery(newFilters)
   }
 
+  const borrowBook = async (bookId) => {
+    const query = gql`
+      mutation BorrowBook($bookId: ID) {
+        borrowBook(bookId: $bookId) {
+          title
+        }
+      }
+    `
+
+    const variables = {
+      bookId,
+    }
+
+    return await request('/api/v1/graphql', query, variables)
+  }
+
   useEffect(() => {
     if (data) return
     refreshData()
@@ -74,10 +90,9 @@ export const APIDataProvider = ({ children }) => {
       refreshData,
       loading: data === null && error === null,
       updateFilters,
+      borrowBook,
     }),
     [data, error, refreshData, updateFilters]
   )
-  return (
-    <APIDataContext.Provider value={value}>{children}</APIDataContext.Provider>
-  )
+  return <BookContext.Provider value={value}>{children}</BookContext.Provider>
 }

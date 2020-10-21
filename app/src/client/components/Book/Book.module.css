@@ -35,14 +35,6 @@
   margin: 0 1%;
 }
 
-.status__available {
-  color: green;
-}
-
-.status__unavailable {
-  color: red;
-}
-
 .infoContainer {
   width: 50%;
 }

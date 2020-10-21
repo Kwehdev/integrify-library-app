@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import useAPIData from '../../hooks/useAPIData'
+import useBooks from '../../hooks/useBooks'
 import Form from '../Form'
 import FormFieldSet from '../FormFieldSet'
 import FormInput from '../FormInput'
@@ -16,7 +16,7 @@ const initialState = {
 export default function FilterMenu() {
   const [filterValues, setFilterValues] = useState(initialState)
   const [loading, setLoading] = useState(false)
-  const { data, updateFilters } = useAPIData()
+  const { data, updateFilters } = useBooks()
 
   const handleInputChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = ev.target

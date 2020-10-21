@@ -1,5 +1,5 @@
 import React from 'react'
-import { APIDataProvider } from '../src/client/context/APIDataContext'
+import { BookProvider } from '../src/client/context/BookContext'
 import { AuthProvider } from '../src/client/context/AuthContext'
 
 import { ThemeProvider } from '../src/client/context/ThemeContext'
@@ -14,7 +14,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <ThemeProvider>
       <AuthProvider>
-        <APIDataProvider>
+        <BookProvider>
           <ProtectRoutes>
             {withCustomLayout ? (
               withCustomLayout(<Component {...pageProps} />)
@@ -24,7 +24,7 @@ function MyApp({ Component, pageProps }) {
               </SiteLayout>
             )}
           </ProtectRoutes>
-        </APIDataProvider>
+        </BookProvider>
       </AuthProvider>
     </ThemeProvider>
   )

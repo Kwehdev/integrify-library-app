@@ -1,7 +1,9 @@
 import request, { gql } from 'graphql-request'
 import { Types } from 'mongoose'
+import { useMemo, useState } from 'react'
 import { BookStatus } from '../../../server/types'
 import useAuth from '../../hooks/useAuth'
+import useBooks from '../../hooks/useBooks'
 
 import styles from './BookStatusDisplay.module.css'
 
@@ -20,32 +22,16 @@ export default function BookStatusDisplay({
   dueDate,
   borrowedBy,
 }: BookStatusDisplayProps) {
+  //Refactor this
+  const [loading, setLoading] = useState(false)
   const { isAuthenticated, user } = useAuth()
 
   const isAvailable = status === 'Available'
 
-  const handleBorrow = async () => {
-    const query = gql`
-      mutation BorrowBook($bookId: ID) {
-        borrowBook(bookId: $bookId) {
-          title
-        }
-      }
-    `
-
-    const variables = {
-      bookId: _id,
-    }
-
-    const response = await request('/api/v1/graphql', query, variables)
-  }
-
-  const handleReturn = () => {}
-
-  return (
-    <div>
+  const BookStatusText = useMemo(
+    () => (
       <p>
-        This book is currently{' '}
+        This Book is currently{' '}
         <span
           className={
             isAvailable ? styles.status__available : styles.status__unavailable
@@ -54,18 +40,68 @@ export default function BookStatusDisplay({
           {status}
         </span>
       </p>
+    ),
+    [status]
+  )
 
-      {isAuthenticated &&
-        (isAvailable ? (
-          <button onClick={handleBorrow}>Borrow this book</button>
-        ) : (
+  const handleBorrow = () => {
+    setLoading(true)
+  }
+  const handleReturn = () => {
+    setLoading(true)
+  }
+
+  const disabled = loading
+
+  const AvailableBookDisplay = useMemo(
+    () => (
+      <div className={styles.userOptions}>
+        {isAuthenticated ? (
           <>
-            <p>This book is due on {dueDate}</p>
-            {user._id === borrowedBy && (
-              <button onClick={handleReturn}>Return this book</button>
+            <button
+              className={styles.btn}
+              onClick={handleBorrow}
+              disabled={disabled}
+            >
+              Borrow this book
+            </button>
+          </>
+        ) : (
+          <p>Please login to checkout a book.</p>
+        )}
+      </div>
+    ),
+    []
+  )
+  const UnavailableBookDisplay = useMemo(
+    () => (
+      <div className={styles.userOptions}>
+        {isAuthenticated ? (
+          <>
+            <p>This book is due to be returned on {dueDate}</p>
+            {borrowedBy === user.userId && (
+              <button
+                className={styles.btn}
+                onClick={handleReturn}
+                disabled={disabled}
+              >
+                Return this book
+              </button>
             )}
           </>
-        ))}
+        ) : (
+          <p>Please login to return a book.</p>
+        )}
+      </div>
+    ),
+    []
+  )
+
+  return (
+    <div>
+      {BookStatusText}
+
+      {isAvailable ? AvailableBookDisplay : UnavailableBookDisplay}
     </div>
   )
 }
