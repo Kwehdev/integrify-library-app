@@ -49,6 +49,8 @@ export default function Book({
     [genre]
   )
 
+  console.log(status)
+
   return (
     <div className={styles.container}>
       <div className={styles.imageWrapper}>

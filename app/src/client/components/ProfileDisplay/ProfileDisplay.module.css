@@ -1,0 +1,12 @@
+.container {
+  width: 100%;
+  font-size: 2rem;
+}
+
+.infoContainer {
+  width: 100%;
+}
+
+.tableData {
+  padding: 9px;
+}

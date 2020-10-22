@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import useAuth from '../../hooks/useAuth'
 
 const UnauthorizedAccessRoutes = ['/users/register', '/users/login']
-const UserAccessRoutes = []
+const UserAccessRoutes = ['/profile']
 const AdminAccessRoutes = [
   '/authors/new',
   '/authors/update',
