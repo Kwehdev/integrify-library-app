@@ -36,6 +36,7 @@ export const BookProvider = ({ children }) => {
       }
 
       const { getBooks } = await request('/api/v1/graphql', query, variables)
+      console.log(getBooks)
       setData(getBooks)
     } catch (e) {
       console.log(e)
@@ -71,7 +72,27 @@ export const BookProvider = ({ children }) => {
       bookId,
     }
 
-    return await request('/api/v1/graphql', query, variables)
+    const { borrowBook } = await request('/api/v1/graphql', query, variables)
+    await refreshData()
+    return borrowBook
+  }
+
+  const returnBook = async (bookId) => {
+    const query = gql`
+      mutation ReturnBook($bookId: ID) {
+        returnBook(bookId: $bookId) {
+          title
+        }
+      }
+    `
+
+    const variables = {
+      bookId,
+    }
+
+    const { returnBook } = await request('/api/v1/graphql', query, variables)
+    await refreshData()
+    return returnBook
   }
 
   useEffect(() => {
@@ -91,6 +112,7 @@ export const BookProvider = ({ children }) => {
       loading: data === null && error === null,
       updateFilters,
       borrowBook,
+      returnBook,
     }),
     [data, error, refreshData, updateFilters]
   )

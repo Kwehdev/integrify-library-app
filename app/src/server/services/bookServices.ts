@@ -27,9 +27,11 @@ export const findBooksInDB = async (
 
 export const findBookById = async (bookId: Types.ObjectId) => {
   try {
-    return await (await Book.findById(bookId).exec())
-      .populate('authors')
-      .execPopulate()
+    const bookDoc = await Book.findById(bookId).exec()
+    if (bookDoc) {
+      return await bookDoc.populate('authors').execPopulate()
+    }
+    return null
   } catch (err) {
     throw new DatabaseError(err)
   }

@@ -25,7 +25,7 @@ export default function BookStatusDisplay({
   //Refactor this
   const [loading, setLoading] = useState(false)
   const { isAuthenticated, user } = useAuth()
-
+  const { borrowBook, returnBook } = useBooks()
   const isAvailable = status === 'Available'
 
   const BookStatusText = useMemo(
@@ -44,11 +44,15 @@ export default function BookStatusDisplay({
     [status]
   )
 
-  const handleBorrow = () => {
+  const handleBorrow = async () => {
     setLoading(true)
+    await borrowBook(_id)
+    setLoading(false)
   }
-  const handleReturn = () => {
+  const handleReturn = async () => {
     setLoading(true)
+    await returnBook(_id)
+    setLoading(false)
   }
 
   const disabled = loading

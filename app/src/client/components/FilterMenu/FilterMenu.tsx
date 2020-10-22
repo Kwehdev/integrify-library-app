@@ -79,7 +79,9 @@ export default function FilterMenu() {
             onChange={handleInputChange}
             value={filterValues[name]}
             required={false}
-            min={0}
+            {...{
+              min: 0,
+            }}
           />
 
           <FormSubmitBtn submitText={'Apply Filters'} />
