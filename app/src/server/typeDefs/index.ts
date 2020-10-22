@@ -3,6 +3,8 @@ import { gql } from 'graphql-request'
 const typeDefs = gql`
   type Query {
     getUserProfile: UserProfile
+    getBooks(query: BookQueryInput): [Book]!
+    getAuthors(query: AuthorQueryInput): [Author]!
   }
 
   type Mutation {
@@ -12,6 +14,14 @@ const typeDefs = gql`
     updateUserProfile(userId: ID, user: UserUpdateProfileInput): String
     updateUserPassword(userId: ID, user: UserUpdatePasswordInput): String
     resetUserPasswordRequest(email: String!): String
+    createAuthor(author: AuthorCreateInput): Author
+    deleteAuthor(authorId: ID): Author
+    updateAuthor(authorId: ID, author: AuthorUpdateInput): Author
+    createBook(book: BookCreateInput): Book
+    updateBook(bookId: ID, book: BookUpdateInput): Book
+    deleteBook(bookId: ID): Book
+    borrowBook(bookId: ID): Book
+    returnBook(bookId: ID): Book
   }
 
   type UserProfile {
@@ -48,16 +58,6 @@ const typeDefs = gql`
     newPassword: String
     confirmNewPassword: String
   }
-  type Query {
-    getAuthors(query: AuthorQueryInput): [Author]!
-  }
-
-  type Mutation {
-    createAuthor(author: AuthorCreateInput): Author
-    deleteAuthor(authorId: ID): Author
-    updateAuthor(authorId: ID, author: AuthorUpdateInput): Author
-  }
-
   input AuthorCreateInput {
     name: String!
   }
@@ -74,17 +74,6 @@ const typeDefs = gql`
     _id: ID!
     name: String!
     books: [Book]!
-  }
-  type Query {
-    getBooks(query: BookQueryInput): [Book]!
-  }
-
-  type Mutation {
-    createBook(book: BookCreateInput): Book
-    updateBook(bookId: ID, book: BookUpdateInput): Book
-    deleteBook(bookId: ID): Book
-    borrowBook(bookId: ID): Book
-    returnBook(bookId: ID): Book
   }
 
   type Book {
