@@ -22,6 +22,11 @@ export default function UserMenu() {
             <a className={styles.navLink}>Update Profile</a>
           </Link>
         </li>
+        <li className={styles.menuItem}>
+          <Link href='/settings/update'>
+            <a className={styles.navLink}>Update Password</a>
+          </Link>
+        </li>
       </ul>
     </div>
   )
