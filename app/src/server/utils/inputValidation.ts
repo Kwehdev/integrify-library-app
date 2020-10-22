@@ -44,16 +44,22 @@ export const areUpdateUserProfileInputsValid = ({
   firstName,
   lastName,
 }) => {
-  return firstName &&
-    firstName.length >= 1 &&
-    firstName.length <= 24 &&
-    lastName &&
-    lastName.length >= 1 &&
-    lastName.length <= 24 &&
-    email &&
-    email.match(emailRegex)
-    ? true
-    : false
+  if (!email && !firstName && !lastName) return false
+
+  if (email && !email.match(emailRegex)) {
+    return false
+  }
+
+  if (
+    (firstName && firstName.length < 1) ||
+    (firstName && firstName.length > 24)
+  ) {
+    return false
+  }
+  if ((lastName && lastName.length < 1) || (lastName && lastName.length > 24)) {
+    return false
+  }
+  return true
 }
 
 export const areUpdateUserPasswordInputsValid = ({
