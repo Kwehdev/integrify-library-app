@@ -5,40 +5,21 @@ import styles from './Navbar.module.css'
 import useAuth from '../../hooks/useAuth'
 import { useRouter } from 'next/router'
 import AdminMenu from '../AdminMenu'
+import UserMenu from '../UserMenu'
 
 export default function Navbar() {
-  const { user, isAuthenticated, isAdmin, logout } = useAuth()
+  const { isAuthenticated, isAdmin, logout } = useAuth()
 
   const handleLogout = async () => {
     await logout()
   }
 
-  //Todo Refactor
-  const UserMenu = useMemo(() => {
-    if (!isAuthenticated) {
-      return (
-        <ul className={styles.userMenu}>
-          <li className={styles.navItem}>
-            <Link href='/users/register'>
-              <a className={styles.navLink}>Register</a>
-            </Link>
-          </li>
-          <li className={styles.navItem}>
-            <Link href='/users/login'>
-              <a className={styles.navLink}>Log In</a>
-            </Link>
-          </li>
-        </ul>
-      )
-    }
-
+  const UserNavMenu = useMemo(() => {
     if (isAuthenticated) {
       return (
         <ul className={styles.userMenu}>
           <li className={styles.navItem}>
-            <p className={styles.greeting}>
-              Hello, <strong>{user.username}</strong>
-            </p>
+            <UserMenu />
           </li>
           {isAdmin && (
             <li className={styles.navItem}>
@@ -53,7 +34,23 @@ export default function Navbar() {
         </ul>
       )
     }
-  }, [user, isAuthenticated])
+
+    return (
+      <ul className={styles.userMenu}>
+        <li className={styles.navItem}>
+          <Link href='/users/register'>
+            <a className={styles.navLink}>Register</a>
+          </Link>
+        </li>
+
+        <li className={styles.navItem}>
+          <Link href='/users/login'>
+            <a className={styles.navLink}>Log in</a>
+          </Link>
+        </li>
+      </ul>
+    )
+  }, [isAuthenticated, isAdmin])
 
   return (
     <nav className={styles.container}>
@@ -75,7 +72,7 @@ export default function Navbar() {
         </li>
       </ul>
 
-      {UserMenu}
+      {UserNavMenu}
     </nav>
   )
 }
