@@ -25,7 +25,7 @@ const updateUserPassword: GQLMutation = async (_parent, _args, _context) => {
 
   //ADMIN role will bypass this check.
   if (_context.req.user.role !== 'ADMIN') {
-    if (!_context.req.user.userId.equals(userId)) {
+    if (_context.req.user.userId !== userId) {
       throw new UnauthorizedError()
     }
 

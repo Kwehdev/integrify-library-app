@@ -23,12 +23,12 @@ const updateUserProfile: GQLMutation = async (_parent, _args, _context) => {
 
   //ADMIN role will bypass this check.
   if (_context.req.user.role !== 'ADMIN') {
-    if (!_context.req.user.userId.equals(userId)) {
+    if (_context.req.user.userId !== userId) {
       throw new UnauthorizedError()
     }
   }
 
-  const { firstName, lastName, email } = user
+  const { email } = user
 
   //Check if email is taken. This will throw a conflict error if it is, ending this block.
   const userDoc = await findUserByEmail(email)
